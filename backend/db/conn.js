@@ -17,7 +17,7 @@ dataPool.allGames = () => {
         })      
     })
 } 
-dataPool.oneGaME=(id)=>{
+dataPool.oneGame=(id)=>{
     return new Promise ((resolve, reject)=>{
         conn.query(`SELECT * FROM Game WHERE id = ?`, id, (err,res)=>{
             if(err){return reject(err)}
