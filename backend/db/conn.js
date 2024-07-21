@@ -35,7 +35,26 @@ dataPool.createGame=(id,name,description,type,year)=>{
       })
     })
 }
-  
+
+dataPool.authUser=(username)=>{
+      return new Promise ((resolve, reject)=>{
+        conn.query('SELECT * FROM User WHERE username = ?', username, (err,res, fields)=>{
+          if(err){return reject(err)}
+          return resolve(res)
+        })
+    })  
+        
+}
+    
+dataPool.addUser=(username,email,password)=>{
+      return new Promise ((resolve, reject)=>{
+        conn.query(`INSERT INTO User (username,email,password) VALUES (?,?,?)`, [username, email, password], (err,res)=>{
+          if(err){return reject(err)}
+          return resolve(res)
+        })
+    })
+}
+    
          
 conn.connect((err) => {
       if(err){
