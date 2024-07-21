@@ -7,12 +7,42 @@ const  conn = mysql.createConnection({
     database: "SISIII2024_89211095"
   })
 
- conn.connect((err) => {
+let dataPool = {}
+
+dataPool.allGames = () => {
+    return new Promise((resolve,reject) => {
+        conn.query(`SELECT * FROM Game`, (err,res)=>{
+            if(err){return reject(err)}
+            return resolve(res)
+        })      
+    })
+} 
+dataPool.oneGaME=(id)=>{
+    return new Promise ((resolve, reject)=>{
+        conn.query(`SELECT * FROM Game WHERE id = ?`, id, (err,res)=>{
+            if(err){return reject(err)}
+            return resolve(res)
+        })
+    })
+}
+
+dataPool.createGame=(id,name,description,type,year)=>{
+    return new Promise ((resolve, reject)=>{
+        //passing to columns values linked through quotation marks, passing array
+      conn.query(`INSERT INTO Game (id,name,description,type,year) VALUES (?,?,?,?,?)`, [id,name,description,type,year], (err,res)=>{
+        if(err){return reject(err)}
+        return resolve(res)
+      })
+    })
+}
+  
+         
+conn.connect((err) => {
       if(err){
           console.log("ERROR: " + err.message);
           return;    
       }
       console.log('Connection established');
-    })
+})
   
-module.exports = conn
+module.exports = dataPool

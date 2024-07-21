@@ -1,9 +1,16 @@
 const express= require("express")
-const games = express.Router();
+const games = express.Router()
+const db = require("../db/conn")
 
-games.get('/',(req,res)=>{
-    console.log("The route has been reached")
-    res.send("Games")
-    })
+games.get('/',async (req,res)=>{
+    try{
+        let queryResult = await db.allGames();
+        res.json(queryResult)
+    }
+    catch(err){
+        console.log(err)
+        res.sendStatus(500)
+    }
+})
 
 module.exports = games

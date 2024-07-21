@@ -4,7 +4,7 @@ const port = 4567
 const dotenv = require("dotenv")
 dotenv.config()
 
-const db = require("./db/conn")
+
 const games = require("./routes/games")
 
 
