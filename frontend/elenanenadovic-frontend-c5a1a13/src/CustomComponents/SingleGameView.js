@@ -1,6 +1,10 @@
 import { Component } from "react";
 
 class SingleGameView extends Component {
+  QSetViewInParent = (obj) => {
+    this.props.QViewFromChild(obj);
+  };
+
   render() {
     return (
       <div className="card" style={{ margin: "10px" }}>
@@ -12,7 +16,7 @@ class SingleGameView extends Component {
             content.
           </p>
           <button
-            onClick={() => this.QSetViewInParent({ page: "novice" })}
+            onClick={() => this.QSetViewInParent({ page: "games" })}
             className="btn btn-primary"
           >
             Return news

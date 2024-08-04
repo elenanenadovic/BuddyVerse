@@ -1,7 +1,27 @@
 import { Component } from "react";
 
 class SignupView extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {
+        type: "login",
+      },
+    };
+  }
+
+  QGetTextFromField = (e) => {
+    this.setState((prevState) => ({
+      user: { ...prevState.user, [e.target.name]: e.target.value },
+    }));
+  };
+
+  QSendUserToParent = () => {
+    this.props.QUserFromChild(this.state.user);
+  };
+
   render() {
+    console.log(this.state);
     return (
       <div
         className="card"
@@ -17,6 +37,7 @@ class SignupView extends Component {
           <div className="mb-3">
             <label className="form-label">Username</label>
             <input
+              onChange={(e) => this.QGetTextFromField(e)}
               name="username"
               type="text"
               className="form-control"
@@ -27,6 +48,7 @@ class SignupView extends Component {
           <div className="mb-3">
             <label className="form-label">Email address</label>
             <input
+              onChange={(e) => this.QGetTextFromField(e)}
               name="email"
               type="email"
               className="form-control"
@@ -40,6 +62,7 @@ class SignupView extends Component {
           <div className="mb-3">
             <label className="form-label">Password</label>
             <input
+              onChange={(e) => this.QGetTextFromField(e)}
               name="password"
               type="password"
               className="form-control"
@@ -47,7 +70,11 @@ class SignupView extends Component {
             />
           </div>
         </form>
-        <button style={{ margin: "10px" }} className="btn btn-primary bt">
+        <button
+          onClick={() => this.QSendUserToParent(this.state)}
+          style={{ margin: "10px" }}
+          className="btn btn-primary bt"
+        >
           Submit
         </button>
       </div>
@@ -56,3 +83,4 @@ class SignupView extends Component {
 }
 
 export default SignupView;
+

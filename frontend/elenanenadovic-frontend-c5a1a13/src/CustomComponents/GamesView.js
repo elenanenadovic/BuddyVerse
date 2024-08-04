@@ -1,6 +1,11 @@
 import { Component } from "react";
 
 class GameView extends Component {
+  /*passing object to prop*/
+  QSetViewInParent = (obj) => {
+    this.props.QIDFromChild(obj);
+  };
+
   render() {
     return (
       <div
@@ -13,7 +18,11 @@ class GameView extends Component {
               <h5 className="card-title">Card title</h5>
               <p className="card-text">Slug</p>
             </div>
-            <button style={{ margin: "10px" }} className="btn btn-primary bt">
+            <button
+              onClick={() => this.QSetViewInParent({ page: "game", id: 1 })}
+              style={{ margin: "10px" }}
+              className="btn btn-primary bt"
+            >
               Read more
             </button>
           </div>
