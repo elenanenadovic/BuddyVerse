@@ -2,7 +2,13 @@ import { Component } from "react";
 import axios from "axios";
 
 class GameView extends Component {
-
+  
+  constructor(props){
+    super(props)
+    this.state={
+      games:[]
+    }
+  }
 
 
   /*passing object to prop*/
@@ -12,15 +18,18 @@ class GameView extends Component {
 
   
   /*rusn everytime component is mounted*/
+  
   componentDidMount(){
     axios.get("http://88.200.63.148:4567/games")
     .then(res=>{
-      console.log(res)
+      this.setState({
+        games: res.data
+      })
     })
-
   }
 
   render() {
+    
     return (
       <div
         className="row row-cols-1 row-cols-md-3 g-4"

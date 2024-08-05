@@ -8,17 +8,14 @@ dotenv.config()
 
 const games = require("./routes/games")
 
-/*
+//to read json objects
+app.use(express.urlencoded({extended : true}));
 app.use(cors({
     origin:["http://88.200.63.148:2304"],
     methods:["GET", "POST"],
     credentials: true
 }))
-*/
-
-//to read json objects
-app.use(express.urlencoded({extended:true}))
-app.use(cors())
+//app.use(cors())
 app.get("/",(req,res)=>{
     res.send("hola")
 })
