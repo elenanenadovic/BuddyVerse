@@ -7,6 +7,7 @@ dotenv.config()
 
 
 const games = require("./routes/games")
+const user = require("./routes/user")
 
 //to read json objects
 app.use(express.json())
@@ -28,3 +29,4 @@ app.listen(process.env.PORT || port, ()=>{
 
 //routes
 app.use('/games', games);
+app.use('/user', user);

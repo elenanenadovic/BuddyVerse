@@ -46,9 +46,9 @@ dataPool.authUser=(username)=>{
         
 }
     
-dataPool.addUser=(username,email,password)=>{
+dataPool.addUser=(id, username,email,password)=>{
       return new Promise ((resolve, reject)=>{
-        conn.query(`INSERT INTO User (username,email,password) VALUES (?,?,?)`, [username, email, password], (err,res)=>{
+        conn.query(`INSERT INTO User (id, username,email,password) VALUES (?,?,?,?)`, [id,username, email, password], (err,res)=>{
           if(err){return reject(err)}
           return resolve(res)
         })

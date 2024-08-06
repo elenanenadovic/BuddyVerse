@@ -33,6 +33,7 @@ user.post('/login', async(req, res) => {
 })
 
 user.post('/register', async(req,res) =>{
+    let id = req.body.id
     let username = req.body.username
     let password = req.body.password
     let email = req.body.email
@@ -41,7 +42,7 @@ user.post('/register', async(req,res) =>{
 
     if(isComplete){
         try{
-            let queryResult = await db.addUser(username, email, password)
+            let queryResult = await db.addUser(id, username, email, password)
             if(queryResult.affectedRows){
                 console.log("new user added")
             }
@@ -54,3 +55,5 @@ user.post('/register', async(req,res) =>{
     }
     res.end()
 })
+
+module.exports = user
