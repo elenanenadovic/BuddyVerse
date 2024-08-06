@@ -21,7 +21,7 @@ class App extends React.Component {
   QSetView = (obj) => {
     this.setState({
       currentPage: obj.page,
-      gameId: obj.id || 0,
+      gameID: obj.id || 0,
     });
   };
 
@@ -42,7 +42,7 @@ class App extends React.Component {
       case "login":
         return <LoginView QUserFromChild={this.QHandleUserLog} />;
       case "game":
-        return <SingleGameView QViewFromChild={this.QSetView} />;
+        return <SingleGameView QViewFromChild={this.QSetView} data={this.state.gameID} />;
     }
   };
 
@@ -51,6 +51,7 @@ class App extends React.Component {
   };
 
   render() {
+    console.log(this.state)
     return (
       <div id="APP" className="container">
         <div id="menu" className="row">
