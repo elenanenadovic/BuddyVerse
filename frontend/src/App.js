@@ -36,7 +36,7 @@ class App extends React.Component {
       case "games":
         return <GamesView QIDFromChild={this.QSetView} />;
       case "addgame":
-        return <AddGameView />;
+        return <AddGameView QViewFromChild={this.QSetView} />;
       case "signup":
         return <SignupView QUserFromChild={this.QHandleUserLog} />;
       case "login":
