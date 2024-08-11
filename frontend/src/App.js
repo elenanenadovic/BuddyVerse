@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import './style.css';
 
 //imported routes
 import GamesView from "./CustomComponents/GamesView";
@@ -11,12 +12,13 @@ import AboutView from "./CustomComponents/AboutView";
 import AddGameView from "./CustomComponents/AddGameView";
 
 class App extends React.Component {
+  
   constructor(props) {
     super(props);
     this.state = {
       currentPage: "home",
       gameID: 0,
-      userStatus:{
+      userStatus: {
         logged: false
       }
     };
@@ -29,11 +31,11 @@ class App extends React.Component {
     });
   };
 
-  componentDidMount(){
+  componentDidMount() {
     axios.get("http://88.200.63.148:4567/user/login")
-    .then(res =>{
-      console.log(res)
-    })
+      .then(res => {
+        console.log(res)
+      })
   }
   QGetView = (state) => {
     let page = state.currentPage;
@@ -58,23 +60,23 @@ class App extends React.Component {
 
   QHandleUserLog = (obj) => {
     this.setState({
-      userStatus: {logged : true, user:obj}
+      userStatus: { logged: true, user: obj }
     })
   };
 
   render() {
     console.log(this.state)
     return (
-      <div id="APP" className="container">
+      <div id="APP" className="container-fluid">
         <div id="menu" className="row">
-          <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+          <nav className="navbar navbar-expand-lg navbar-dark ">
             <div className="container-fluid">
               <a
                 onClick={() => this.QSetView({ page: "home" })}
                 className="navbar-brand"
                 href="#"
               >
-                Home
+                HOME
               </a>
               <button
                 className="navbar-toggler"
@@ -99,7 +101,7 @@ class App extends React.Component {
                       className="nav-link "
                       href="#"
                     >
-                      About
+                      ABOUT
                     </a>
                   </li>
 
@@ -109,7 +111,7 @@ class App extends React.Component {
                       className="nav-link "
                       href="#"
                     >
-                      Games
+                      GAMES
                     </a>
                   </li>
 
@@ -119,7 +121,7 @@ class App extends React.Component {
                       className="nav-link"
                       href="#"
                     >
-                      Add game
+                      ADD A GAME
                     </a>
                   </li>
 
@@ -129,7 +131,7 @@ class App extends React.Component {
                       className="nav-link "
                       href="#"
                     >
-                      Sign up
+                      SIGN UP
                     </a>
                   </li>
 
@@ -139,19 +141,33 @@ class App extends React.Component {
                       className="nav-link "
                       href="#"
                     >
-                      Login
+                      LOGIN
                     </a>
                   </li>
                 </ul>
               </div>
             </div>
           </nav>
+
+          
         </div>
 
-        <div id="viewer" className="row container">
+        <div id="viewer" >
           {this.QGetView(this.state)}
         </div>
+
+
+      
+
+
+
+
+
+
+
       </div>
+
+
     );
   }
 }
