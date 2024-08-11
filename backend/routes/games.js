@@ -30,11 +30,15 @@ games.get('/:id', async (req, res, next) =>{
 games.post('/', async(req, res, next) => {
 
     //id,name,description,type,year
-    let id = 2
+    let id = req.body.id
     let name = req.body.name
     let description = req.body.description
     let type = req.body.type
     let year = req.body.year
+
+    console.log(req.body.id)
+    console.log(req.body.name)
+    console.log(req.body.description)
 
     let isComplete = name && description && type && year
     if(isComplete){

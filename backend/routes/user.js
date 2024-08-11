@@ -1,9 +1,32 @@
 const express= require("express")
 const user = express.Router() //root
 const db = require("../db/conn") //make a connection
+const session = require("express-session")
+
+user.use(session({
+    secret: "somesecret",
+    resave:false,
+    saveUninitialized:false,
+    cookie:{
+        expires: 60*2
+    }
+}))
+
+user.get("/login", (req,res)=>{
+    if(req.session.user){
+        res.send({
+            logged:true,
+            user:req.session.user
+        })
+    }else{
+        res.send({logged:false})
+    }
+})
+
 
 user.post('/login', async(req, res) => {
-
+    console.log(req.body.username)
+    console.log(req.body.password)
     let username = req.body.username
     let password = req.body.password
 
@@ -15,7 +38,11 @@ user.post('/login', async(req, res) => {
             //checks if user exists
             if(queryResult.length > 0){
                 if(password == queryResult[0].password){
-                    console.log(queryResult)
+                    console.log(queryResult[0])
+                    req.session.user = queryResult[0]
+                    console.log(queryResult[0])
+                    res.json(queryResult[0].username)
+                    console.log("SESSION VALID")
                 }else{
                     console.log("incorrect password")
                 }
@@ -33,6 +60,7 @@ user.post('/login', async(req, res) => {
 })
 
 user.post('/register', async(req,res) =>{
+    let id = req.body.id
     let username = req.body.username
     let password = req.body.password
     let email = req.body.email
@@ -41,7 +69,7 @@ user.post('/register', async(req,res) =>{
 
     if(isComplete){
         try{
-            let queryResult = await db.addUser(username, email, password)
+            let queryResult = await db.addUser(id, username, email, password)
             if(queryResult.affectedRows){
                 console.log("new user added")
             }
@@ -54,3 +82,5 @@ user.post('/register', async(req,res) =>{
     }
     res.end()
 })
+
+module.exports = user

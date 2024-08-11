@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 //imported routes
 import GamesView from "./CustomComponents/GamesView";
@@ -15,6 +16,9 @@ class App extends React.Component {
     this.state = {
       currentPage: "home",
       gameID: 0,
+      userStatus:{
+        logged: false
+      }
     };
   }
 
@@ -25,6 +29,12 @@ class App extends React.Component {
     });
   };
 
+  componentDidMount(){
+    axios.get("http://88.200.63.148:4567/user/login")
+    .then(res =>{
+      console.log(res)
+    })
+  }
   QGetView = (state) => {
     let page = state.currentPage;
 
@@ -36,7 +46,7 @@ class App extends React.Component {
       case "games":
         return <GamesView QIDFromChild={this.QSetView} />;
       case "addgame":
-        return <AddGameView />;
+        return state.userStatus.logged ? <AddGameView QViewFromChild={this.QSetView} /> : "Loading";
       case "signup":
         return <SignupView QUserFromChild={this.QHandleUserLog} />;
       case "login":
@@ -47,7 +57,9 @@ class App extends React.Component {
   };
 
   QHandleUserLog = (obj) => {
-    this.QSetView({ page: "home" });
+    this.setState({
+      userStatus: {logged : true, user:obj}
+    })
   };
 
   render() {

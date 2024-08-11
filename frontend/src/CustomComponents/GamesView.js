@@ -18,9 +18,9 @@ class GameView extends Component {
 
 
   /*rusn everytime component is mounted*/
-
+//zarez
   componentDidMount() {
-    axios.get("http://88.200.63.148:4567/games")
+    axios.get("http://88.200.63.148:4567/games", )
       .then(res => {
         this.setState({
           games: res.data
