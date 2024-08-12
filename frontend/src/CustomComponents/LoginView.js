@@ -40,8 +40,7 @@ class LoginView extends Component {
     console.log(this.state);
     return (
       <div
-        className="row row-cols-1 row-cols-md-3 g-4"
-        style={{ margin: "10px" }}
+        className="card" id = "signup"
       >
         <form style={{ margin: "20px" }}>
           <div className="mb-3">
@@ -67,10 +66,10 @@ class LoginView extends Component {
         </form>
         <button
           onClick={() => this.QPostLogin()}
-          style={{ margin: "10px" }}
+          style={{ color : "white", background: "black", width: "30%", margin : "auto", border: "none", marginBottom: "3%", fontWeight: "900"}}
           className="btn btn-primary bt"
         >
-          Login
+          LOGIN
         </button>
       </div>
     );

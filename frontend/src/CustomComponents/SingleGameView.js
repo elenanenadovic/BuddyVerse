@@ -27,20 +27,21 @@ class SingleGameView extends Component {
     let game = this.state.game
   
     return (
-      <div className="card" style={{ margin: "10px" }}>
+      <div id = "single-game" className="card" >
         {game.length > 0 ?
           <div>
-            <h5 className="card-header">{game[0].name}</h5>
             <div className="card-body">
-              <h5 className="card-title">{game[0].year}</h5>
+              <img className = "card-image" src = {game[0].url}></img>
+              <h5 id = "card-title" className="card-title">{game[0].name}</h5>
+              <h5 id = "card-year" className="card-title">{game[0].year}</h5>
               <p className="card-text">
                 {game[0].description}
               </p>
-              <button
+              <button id = "card-button"
                 onClick={() => this.QSetViewInParent({ page: "games" })}
                 className="btn btn-primary"
               >
-                Return news
+                RETURN TO GAMES
               </button>
             </div>
           </div>

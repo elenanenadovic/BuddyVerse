@@ -18,7 +18,8 @@ class AddGameView extends Component {
       name: this.state.game.name,
       description: this.state.game.description,
       type: this.state.game.type,
-      year: 2023
+      year: 2023,
+      url : this.state.game.url
     })
 
     this.props.QViewFromChild({page:"games"})
@@ -43,6 +44,10 @@ class AddGameView extends Component {
         <div className="mb-3" style={{ margin: "10px" }}>
           <label className="form-label">Descirption</label>
           <input name = "description" onChange={(e) => this.QGetTextFromField(e)} type="text" className="form-control" placeholder="Description..." />
+        </div>
+        <div className="mb-3" style={{ margin: "10px" }}>
+          <label className="form-label">Descirption</label>
+          <input name = "url" onChange={(e) => this.QGetTextFromField(e)} type="text" className="form-control" placeholder="Url..." />
         </div>
         <div className="mb-3" style={{ margin: "10px" }}>
           <label className="form-label">Type</label>
