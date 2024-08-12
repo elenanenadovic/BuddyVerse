@@ -38,18 +38,12 @@ class SignupView extends Component {
     console.log(this.state);
     return (
       <div
-        className="card"
-        style={{
-          width: "400px",
-          marginLeft: "auto",
-          marginRight: "auto",
-          marginTop: "10px",
-          marginBottom: "10px",
-        }}
+        className="card" id = "signup"
+      
       >
         <form style={{ margin: "20px" }}>
           <div className="mb-3">
-            <label className="form-label">Username</label>
+            <label className="form-label">Username:</label>
             <input
               onChange={(e) => this.QGetTextFromField(e)}
               name="username"
@@ -60,7 +54,7 @@ class SignupView extends Component {
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">Email address</label>
+            <label className="form-label">Email address:</label>
             <input
               onChange={(e) => this.QGetTextFromField(e)}
               name="email"
@@ -69,12 +63,12 @@ class SignupView extends Component {
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
             />
-            <div id="emailHelp" className="form-text">
+            <div id="emailHelp" className="form-text" style = {{color: "gray"}}>
               We'll never share your email with anyone else.
             </div>
           </div>
           <div className="mb-3">
-            <label className="form-label">Password</label>
+            <label className="form-label">Password:</label>
             <input
               onChange={(e) => this.QGetTextFromField(e)}
               name="password"
@@ -86,10 +80,10 @@ class SignupView extends Component {
         </form>
         <button
           onClick={() => this.QPostSignUp()}
-          style={{ margin: "10px" }}
+          style={{ color : "white", background: "black", width: "30%", margin : "auto", border: "none", marginBottom: "3%", fontWeight: "900"}}
           className="btn btn-primary bt"
         >
-          Submit
+          REGISTER
         </button>
       </div>
     );

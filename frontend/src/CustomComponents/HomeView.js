@@ -175,11 +175,7 @@ class HomeView extends Component {
                       <a href="index.html"><img src="https://www.stark.rs/img/stark-beli-logo.webp" class="img-fluid" alt="logo"></img></a>
                     </div>
 
-                    <div class="footerp">
-                      <p>Get a sneak peek into upcoming events, discover exciting features, and see highlights from our latest activities. From interactive stories and engaging posts to exclusive sneak peeks and community shout-outs, our Instagram page is your go-to spot for all things Buddyverse.</p>
-                    </div>
-                    <span className="footerp
-                      ">FOLLOW US ON: INSTAGRAM</span>
+                    
 
                   </div>
                 </div>
