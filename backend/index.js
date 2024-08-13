@@ -10,6 +10,9 @@ dotenv.config()
 
 const games = require("./routes/games")
 const user = require("./routes/user")
+const movies = require("./routes/movies")
+const locations = require("./routes/locations")
+const platforms = require("./routes/platforms")
 
 //to read json objects
 app.use(cookieParser("somesecret"))
@@ -33,5 +36,8 @@ app.listen(process.env.PORT || port, ()=>{
 })
 
 //routes
+app.use('/locations', locations)
+app.use('/movies', movies)
 app.use('/games', games);
 app.use('/user', user);
+app.use('/platforms', platforms);

@@ -1,12 +1,12 @@
 const express= require("express")
-const games = express.Router()
+const movies = express.Router()
 const db = require("../db/conn")
 
 
 //when typing endpoint games
-games.get('/', async (req,res)=>{
+movies.get('/', async (req,res)=>{
     try{
-        let queryResult = await db.allGames();
+        let queryResult = await db.allMovies();
         res.json(queryResult)
     }
     catch(err){
@@ -16,11 +16,10 @@ games.get('/', async (req,res)=>{
 })
 
 
-
-games.get('/:id', async (req, res, next) =>{
+movies.get('/:id', async (req, res, next) =>{
     try{
        // console.log(req)
-        let queryResult = await db.oneGame(req.params.id)
+        let queryResult = await db.oneMovie(req.params.id)
         res.json(queryResult)
     }
     catch(err){
@@ -30,24 +29,23 @@ games.get('/:id', async (req, res, next) =>{
 })
 
 
+movies.post('/', async(req, res, next) => {
 
-
-games.post('/', async(req, res, next) => {
-
-    //id,name,description,type,year
+    //id 	genre 	ciema 	year 	name 	description
     let id = req.body.id
+    let genre = req.body.genre
+    let cinema = req.body.cinema
+    let year = req.body.year
     let name = req.body.name
     let description = req.body.description
-    let type = req.body.type
-    let year = req.body.year
     let url = req.body.url
 
-    let isComplete = name && description && type && year && url
+    let isComplete = id && genre && cinema && year && name && description && url
     if(isComplete){
         try{
-            let queryResult = await db.createGame(id,name,description,type,year,url)
+            let queryResult = await db.createMovie(id, genre, cinema, year, name, description, url)
             if(queryResult.affectedRows){
-                console.log("Game is added")
+                console.log("Movie is added")
             }
         }
         catch(err){
@@ -55,9 +53,9 @@ games.post('/', async(req, res, next) => {
             res.sendStatus(500)
         }
     }else{
-        console.log("A field is missing to add a game")
+        console.log("A field is missing to add a movie")
     }
     res.end()
 })
 
-module.exports = games
+module.exports = movies

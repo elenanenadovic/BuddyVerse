@@ -26,15 +26,98 @@ dataPool.oneGame=(id)=>{
     })
 }
 
-dataPool.createGame=(id,name,description,type,year)=>{
+dataPool.createGame=(id,name,description,type,year,url)=>{
     return new Promise ((resolve, reject)=>{
         //passing to columns values linked through quotation marks, passing array
-      conn.query(`INSERT INTO Game (id,name,description,type,year) VALUES (?,?,?,?,?)`, [id,name,description,type,year], (err,res)=>{
+      conn.query(`INSERT INTO Game (id,name,description,type,year,url) VALUES (?,?,?,?,?,?)`, [id,name,description,type,year,url], (err,res)=>{
         if(err){return reject(err)}
         return resolve(res)
       })
     })
 }
+
+dataPool.allMovies = () => {
+  return new Promise((resolve,reject) => {
+      conn.query(`SELECT * FROM Movie`, (err,res)=>{
+          if(err){return reject(err)}
+          return resolve(res)
+      })      
+  })
+} 
+dataPool.oneMovie=(id)=>{
+  return new Promise ((resolve, reject)=>{
+      conn.query(`SELECT * FROM Movie WHERE id = ?`, id, (err,res)=>{
+          if(err){return reject(err)}
+          return resolve(res)
+      })
+  })
+}
+
+dataPool.createMovie=(id, genre, cinema, year, name, description, url)=>{
+  return new Promise ((resolve, reject)=>{
+      //passing to columns values linked through quotation marks, passing array
+    conn.query(`INSERT INTO Movie (id, genre, cinema, year, name, description, url) VALUES (?,?,?,?,?,?, ?)`, [id, genre, cinema, year, name, description, url], (err,res)=>{
+      if(err){return reject(err)}
+      return resolve(res)
+    })
+  })
+}
+
+
+dataPool.allLocations = () => {
+  return new Promise((resolve,reject) => {
+      conn.query(`SELECT * FROM Location`, (err,res)=>{
+          if(err){return reject(err)}
+          return resolve(res)
+      })      
+  })
+} 
+dataPool.oneLocation=(id)=>{
+  return new Promise ((resolve, reject)=>{
+      conn.query(`SELECT * FROM Location WHERE id = ?`, id, (err,res)=>{
+          if(err){return reject(err)}
+          return resolve(res)
+      })
+  })
+}
+
+dataPool.createLocation=(id, address, likes, dislikes, type, description, name, url)=>{
+  return new Promise ((resolve, reject)=>{
+      //passing to columns values linked through quotation marks, passing array
+    conn.query(`INSERT INTO Location (id, address, likes, dislikes, type, description, name, url) VALUES (?,?,?,?,?,?,?,?)`, [id, address, likes, dislikes, type, description, name, url], (err,res)=>{
+      if(err){return reject(err)}
+      return resolve(res)
+    })
+  })
+}
+
+dataPool.allPlatforms = () => {
+  return new Promise((resolve,reject) => {
+      conn.query(`SELECT * FROM Platform`, (err,res)=>{
+          if(err){return reject(err)}
+          return resolve(res)
+      })      
+  })
+} 
+dataPool.onePlatform=(id)=>{
+  return new Promise ((resolve, reject)=>{
+      conn.query(`SELECT * FROM Platform WHERE id = ?`, id, (err,res)=>{
+          if(err){return reject(err)}
+          return resolve(res)
+      })
+  })
+}
+
+dataPool.createPlatform=(id,  name, description, url)=>{
+  return new Promise ((resolve, reject)=>{
+      //passing to columns values linked through quotation marks, passing array
+    conn.query(`INSERT INTO Platform (id,  name, description, url) VALUES (?,?,?,?)`, [id,  name, description, url], (err,res)=>{
+      if(err){return reject(err)}
+      return resolve(res)
+    })
+  })
+}
+
 
 dataPool.authUser=(username)=>{
       return new Promise ((resolve, reject)=>{
@@ -55,7 +138,10 @@ dataPool.addUser=(id, username,email,password)=>{
     })
 }
     
-         
+
+
+
+
 conn.connect((err) => {
       if(err){
           console.log("ERROR: " + err.message);

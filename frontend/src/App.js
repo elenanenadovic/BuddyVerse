@@ -10,14 +10,21 @@ import SignupView from "./CustomComponents/SignupView";
 import SingleGameView from "./CustomComponents/SingleGameView";
 import AboutView from "./CustomComponents/AboutView";
 import AddGameView from "./CustomComponents/AddGameView";
+import MoviesView from "./CustomComponents/MoviesView"
+import SingleMovieView from "./CustomComponents/SingleMovieView";
+import SingleLocationView from "./CustomComponents/SingleLocationView";
+import LocationsView from "./CustomComponents/LocationsView";
+import PlatformsView from "./CustomComponents/PlatformsView";
 
 class App extends React.Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
       currentPage: "home",
       gameID: 0,
+      movieID: 0,
+      locationID: 0,
       userStatus: {
         logged: false
       }
@@ -28,6 +35,8 @@ class App extends React.Component {
     this.setState({
       currentPage: obj.page,
       gameID: obj.id || 0,
+      movieID: obj.id || 0,
+      locationID: obj.id || 0
     });
   };
 
@@ -47,6 +56,10 @@ class App extends React.Component {
         return <AboutView />;
       case "games":
         return <GamesView QIDFromChild={this.QSetView} />;
+      case "movies":
+        return <MoviesView QIDFromChild={this.QSetView} />;
+      case "locations":
+        return <LocationsView QIDFromChild={this.QSetView} />;
       case "addgame":
         return state.userStatus.logged ? <AddGameView QViewFromChild={this.QSetView} /> : "Loading";
       case "signup":
@@ -55,6 +68,13 @@ class App extends React.Component {
         return <LoginView QUserFromChild={this.QHandleUserLog} />;
       case "game":
         return <SingleGameView QViewFromChild={this.QSetView} data={this.state.gameID} />;
+      case "movie":
+        return <SingleMovieView QViewFromChild={this.QSetView} data={this.state.movieID} />;
+      case "location":
+        return <SingleLocationView QViewFromChild={this.QSetView} data={this.state.locationID} />;
+      case "platforms":
+        return <PlatformsView  QIDFromChild={this.QSetView}  />;
+
     }
   };
 
@@ -117,6 +137,37 @@ class App extends React.Component {
 
                   <li className="nav-item">
                     <a
+                      onClick={() => this.QSetView({ page: "movies" })}
+                      className="nav-link "
+                      href="#"
+                    >
+                      MOVIES
+                    </a>
+                  </li>
+
+                  <li className="nav-item">
+                    <a
+                      onClick={() => this.QSetView({ page: "locations" })}
+                      className="nav-link "
+                      href="#"
+                    >
+                      LOCATIONS
+                    </a>
+                  </li>
+
+                  <li className="nav-item">
+                    <a
+                      onClick={() => this.QSetView({ page: "platforms" })}
+                      className="nav-link "
+                      href="#"
+                    >
+                      PLATFORMS
+                    </a>
+                  </li>
+
+
+                  <li className="nav-item">
+                    <a
                       onClick={() => this.QSetView({ page: "addgame" })}
                       className="nav-link"
                       href="#"
@@ -149,7 +200,7 @@ class App extends React.Component {
             </div>
           </nav>
 
-          
+
         </div>
 
         <div id="viewer" >
@@ -157,7 +208,7 @@ class App extends React.Component {
         </div>
 
 
-      
+
 
 
 
