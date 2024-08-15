@@ -5,7 +5,8 @@ class SingleLocationView extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      location: []
+      location: [],
+      genre: "all"
     }
   }
 
@@ -15,9 +16,18 @@ class SingleLocationView extends Component {
 
   componentDidMount() {
     axios.get("http://88.200.63.148:4567/locations/" + this.props.data)
+
       .then(res => {
+        console.log(this.props.type)
+        let genre = "all"
+        if (this.props.type != "all") {
+          console.log("ovde sam")
+          console.log(res.data[0].type)
+          genre = res.data[0].type
+        }
         this.setState({
-          location: res.data
+          location: res.data,
+          genre: genre
         })
       })
 
@@ -38,7 +48,7 @@ class SingleLocationView extends Component {
                 {location[0].description}
               </p>
               <button id = "card-button"
-                onClick={() => this.QSetViewInParent({ page: "locations" })}
+                onClick={() => this.QSetViewInParent({ page: "locations", type: this.state.genre })}
                 className="btn btn-primary"
               >
                 RETURN TO LOCATIONS

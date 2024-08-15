@@ -18,29 +18,15 @@ class PlatformsView extends Component {
     }));
   };
 
-  QPostLogin = () =>{
-    console.log("tu sam za link")
-    let link = this.state.link
-    console.log(this.state.link)
-    
-    axios.post("http://88.200.63.148:4567/games/l", {
-      url: link.url
-    },{withCredentials: true})
-    .then(res=>{
-      console.log("Sent to server...")
-      console.log(res.data)
-    })
-      
-  }
 
 
-  /*passing object to prop*/
+ 
   QSetViewInParent = (obj) => {
     this.props.QIDFromChild(obj);
   };
 
 
-  /*rusn everytime component is mounted*/
+  
   //zarez
   componentDidMount() {
     axios.get("http://88.200.63.148:4567/platforms",)
@@ -68,14 +54,14 @@ class PlatformsView extends Component {
                 <h5 className="card-title">{d.name}</h5>
                 <div className="card">
                   <div className="card-body">
-                    <img className="games-image" src = {d.url}></img>
+                  <a href={d.description} target="_blank"><img className="games-image" src = {d.url}></img></a>
                     
                   </div>
                  </div>
               </div>
               )
             }) :
-            "There are currently no games sorry uwu"}
+            "There are currently no platforms sorry"}
         </div>
 
       </div>

@@ -8,6 +8,8 @@ class LoginView extends Component {
       user: {
         type: "login",
       },
+      userid: 0,
+      platforms: []
     };
   }
 
@@ -21,19 +23,41 @@ class LoginView extends Component {
     this.props.QUserFromChild(obj);
   };
 
-  QPostLogin = () =>{
-    console.log("tu sam")
-    let user = this.state.user
-    //console.log(this.state.user)
+  QPostLogin = () => {
+    console.log("tu sam");
+    let user = this.state.user;
+    //console.log(this.state.user);
     axios.post("http://88.200.63.148:4567/user/login", {
-      username: user.username,
-      password: user.password
-    },{withCredentials: true})
-    .then(res=>{
-      console.log("Sent to server...")
-      console.log(res.data)
-      this.QSendUser2Parent(res.data)
-    })
+        username: user.username,
+        password: user.password
+    }, { withCredentials: true })
+    .then(res => {
+        console.log("Sent to server...");
+        console.log(res.data);
+        this.QSendUser2Parent(res.data);
+
+        // Use the callback function of setState
+        this.setState({
+            userid: res.data[1]
+        }, () => {
+            // This callback function will be executed after the state is updated
+            this.QPostProfile();
+        });
+    });
+}
+
+
+
+  QPostProfile = () =>{
+    console.log(this.state.userid)
+    axios.get("http://88.200.63.148:4567/profile/" + this.state.userid)
+      .then(res => {
+        this.setState({
+          platforms: res.data
+        })
+        console.log(res.data)
+        
+      })
   }
 
   render() {

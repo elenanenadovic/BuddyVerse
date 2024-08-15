@@ -15,6 +15,7 @@ import SingleMovieView from "./CustomComponents/SingleMovieView";
 import SingleLocationView from "./CustomComponents/SingleLocationView";
 import LocationsView from "./CustomComponents/LocationsView";
 import PlatformsView from "./CustomComponents/PlatformsView";
+import ProfileView from "./CustomComponents/ProfileView";
 
 class App extends React.Component {
 
@@ -27,7 +28,10 @@ class App extends React.Component {
       locationID: 0,
       userStatus: {
         logged: false
-      }
+      },
+      type: "all",
+      profile: false,
+      profileID: 0
     };
   }
 
@@ -36,7 +40,9 @@ class App extends React.Component {
       currentPage: obj.page,
       gameID: obj.id || 0,
       movieID: obj.id || 0,
-      locationID: obj.id || 0
+      locationID: obj.id || 0,
+      type: obj.type || "all",
+      profileID: obj.pid || 0
     });
   };
 
@@ -45,6 +51,8 @@ class App extends React.Component {
       .then(res => {
         console.log(res)
       })
+
+
   }
   QGetView = (state) => {
     let page = state.currentPage;
@@ -55,11 +63,11 @@ class App extends React.Component {
       case "about":
         return <AboutView />;
       case "games":
-        return <GamesView QIDFromChild={this.QSetView} />;
+        return <GamesView QIDFromChild={this.QSetView} type={this.state.type} />;
       case "movies":
-        return <MoviesView QIDFromChild={this.QSetView} />;
+        return <MoviesView QIDFromChild={this.QSetView} type={this.state.type} />;
       case "locations":
-        return <LocationsView QIDFromChild={this.QSetView} />;
+        return <LocationsView QIDFromChild={this.QSetView} type={this.state.type} />;
       case "addgame":
         return state.userStatus.logged ? <AddGameView QViewFromChild={this.QSetView} /> : "Loading";
       case "signup":
@@ -67,13 +75,15 @@ class App extends React.Component {
       case "login":
         return <LoginView QUserFromChild={this.QHandleUserLog} />;
       case "game":
-        return <SingleGameView QViewFromChild={this.QSetView} data={this.state.gameID} />;
+        return <SingleGameView QViewFromChild={this.QSetView} data={this.state.gameID} type={this.state.type} />;
       case "movie":
-        return <SingleMovieView QViewFromChild={this.QSetView} data={this.state.movieID} />;
+        return <SingleMovieView QViewFromChild={this.QSetView} data={this.state.movieID} type={this.state.type} />;
       case "location":
-        return <SingleLocationView QViewFromChild={this.QSetView} data={this.state.locationID} />;
+        return <SingleLocationView QViewFromChild={this.QSetView} data={this.state.locationID} type={this.state.type} />;
       case "platforms":
-        return <PlatformsView  QIDFromChild={this.QSetView}  />;
+        return <PlatformsView QIDFromChild={this.QSetView} />;
+      case "profile":
+        return <ProfileView  QProfileFromChild={this.QHandleProfile}  QIDFromChild={this.QSetView} user = {this.state.userStatus.user} id = {this.state.profileID} />;
 
     }
   };
@@ -84,9 +94,16 @@ class App extends React.Component {
     })
   };
 
+  QHandleProfile = (obj) =>{
+    this.setState({
+      profileID: obj.id
+    })
+  }
+
   render() {
     console.log(this.state)
     return (
+
       <div id="APP" className="container-fluid">
         <div id="menu" className="row">
           <nav className="navbar navbar-expand-lg navbar-dark ">
@@ -176,25 +193,47 @@ class App extends React.Component {
                     </a>
                   </li>
 
-                  <li className="nav-item">
-                    <a
-                      onClick={() => this.QSetView({ page: "signup" })}
-                      className="nav-link "
-                      href="#"
-                    >
-                      SIGN UP
-                    </a>
-                  </li>
+                  {!this.state.userStatus.logged && (
+                    <>
+                      <li className="nav-item">
+                        <a
+                          onClick={() => this.QSetView({ page: "signup" })}
+                          className="nav-link "
+                          href="#"
+                        >
+                          SIGN UP
+                        </a>
+                      </li>
 
-                  <li className="nav-item">
-                    <a
-                      onClick={() => this.QSetView({ page: "login" })}
-                      className="nav-link "
-                      href="#"
-                    >
-                      LOGIN
-                    </a>
-                  </li>
+                      <li className="nav-item">
+                        <a
+                          onClick={() => this.QSetView({ page: "login" })}
+                          className="nav-link "
+                          href="#"
+                        >
+                          LOGIN
+                        </a>
+                      </li>
+                    </>
+                  )}
+
+                  {this.state.userStatus.logged && (
+                    <>
+                      <li className="nav-item">
+                        <a
+                          onClick={() => this.QSetView({ page: "profile" })}
+                          className="nav-link "
+                          href="#"
+                        >
+                          PROFILE
+                        </a>
+                      </li>
+
+
+                    </>
+                  )}
+
+
                 </ul>
               </div>
             </div>

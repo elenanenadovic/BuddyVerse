@@ -13,6 +13,7 @@ const user = require("./routes/user")
 const movies = require("./routes/movies")
 const locations = require("./routes/locations")
 const platforms = require("./routes/platforms")
+const profile = require("./routes/profile")
 
 //to read json objects
 app.use(cookieParser("somesecret"))
@@ -41,3 +42,4 @@ app.use('/movies', movies)
 app.use('/games', games);
 app.use('/user', user);
 app.use('/platforms', platforms);
+app.use('/profile', profile);

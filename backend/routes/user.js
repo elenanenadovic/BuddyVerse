@@ -41,7 +41,7 @@ user.post('/login', async(req, res) => {
                     console.log(queryResult[0])
                     req.session.user = queryResult[0]
                     console.log(queryResult[0])
-                    res.json(queryResult[0].username)
+                    res.json([queryResult[0].username, queryResult[0].id])
                     console.log("SESSION VALID")
                 }else{
                     console.log("incorrect password")

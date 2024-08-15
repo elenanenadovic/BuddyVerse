@@ -18,8 +18,22 @@ platforms.get('/', async (req,res)=>{
 
 platforms.get('/:id', async (req, res, next) =>{
     try{
-       // console.log(req)
+       //console.log(req)
+       console.log(req.params.id)
         let queryResult = await db.onePlatform(req.params.id)
+        res.json(queryResult)
+    }
+    catch(err){
+        console.log(err)
+        res.sendStatus(500)
+    }
+})
+
+platforms.get('/profil/:id', async (req, res, next) =>{
+    try{
+       console.log("UPAO")
+       console.log(req.params.id)
+        let queryResult = await db.allProfilePlatforms(req.params.id)
         res.json(queryResult)
     }
     catch(err){
