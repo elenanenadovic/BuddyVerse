@@ -35,12 +35,9 @@ class LoginView extends Component {
         console.log("Sent to server...");
         console.log(res.data);
         this.QSendUser2Parent(res.data);
-
-        // Use the callback function of setState
         this.setState({
             userid: res.data[1]
         }, () => {
-            // This callback function will be executed after the state is updated
             this.QPostProfile();
         });
     });

@@ -32,7 +32,7 @@ class GameView extends Component {
         });
       })
       .catch(error => {
-        console.error("Error fetching games:", error);
+        console.error("Error getting games:", error);
       });
     }
   }
@@ -66,7 +66,7 @@ class GameView extends Component {
         });
       })
       .catch(error => {
-        console.error("Error fetching games:", error);
+        console.error("Error:", error);
       });
   }
 
@@ -84,7 +84,7 @@ class GameView extends Component {
 
       <div>
         <div className="select">
-          <label for="type">TTYPE OF THE GAME:</label>
+          <label for="type">TYPE OF THE GAME:</label>
 
           <div className="select-left">
             <select value={this.state.type} name="type" onChange={e => this.setFilter(e.target.value)}>
@@ -105,14 +105,13 @@ class GameView extends Component {
             
 
             <select name="date" onChange={e => this.setFilter2(e.target.value)}>
-              <option value="newest">Newest</option>
-              <option value="oldest">Oldest</option>
+              <option value="newest">MOST RECENT</option>
+              <option value="oldest">LEAST RECENT</option>
             </select>
           </div>
         </div>
 
         <div className="games-body">
-
           <div className="row row-cols-1 row-cols-md-2 g-4" style={{ margin: "10px" }}>
             {data.length > 0 ?
               data.map(d => {
@@ -127,7 +126,7 @@ class GameView extends Component {
                 </div>
                 )
               }) :
-              "There are currently no games sorry uwu"}
+              "There are currently no games sorry."}
           </div>
 
         </div>

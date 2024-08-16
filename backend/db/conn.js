@@ -36,6 +36,17 @@ dataPool.createGame=(id,name,description,type,year,url)=>{
     })
 }
 
+dataPool.deleteGame=(id)=>{
+  return new Promise ((resolve, reject)=>{
+      
+    conn.query(`DELETE FROM Game WHERE id = ?`, [id], (err,res)=>{
+      if(err){return reject(err)}
+      return resolve(res)
+    })
+  })
+}
+
+
 dataPool.allMovies = () => {
   return new Promise((resolve,reject) => {
       conn.query(`SELECT * FROM Movie`, (err,res)=>{
@@ -118,6 +129,39 @@ dataPool.onePlatform=(id)=>{
       })
   })
 }
+
+
+dataPool.gamesProfile=(id)=>{
+  return new Promise ((resolve, reject)=>{
+      conn.query(`SELECT * FROM Game_profile WHERE p_id = ?`, id, (err,res)=>{
+          if(err){return reject(err)}
+          console.log(resolve(res))
+          return resolve(res)
+      })
+  })
+}
+
+dataPool.deleteGameProfile=(id, p_id, g_id)=>{
+  return new Promise ((resolve, reject)=>{
+    
+    conn.query(`DELETE FROM Game_profile WHERE p_id = ? AND g_id = ? `, [p_id, g_id], (err,res)=>{
+      if(err){return reject(err)}
+      return resolve(res)
+    })
+  })
+}
+
+dataPool.createGameProfile=(id, p_id, g_id)=>{
+  return new Promise ((resolve, reject)=>{
+    
+    conn.query(`INSERT INTO Game_profile (id,  p_id, g_id) VALUES (?,?,?)`, [id,  p_id, g_id], (err,res)=>{
+      if(err){return reject(err)}
+      return resolve(res)
+    })
+  })
+}
+
+
 
 dataPool.createPlatform=(id,  name, description, url)=>{
   return new Promise ((resolve, reject)=>{

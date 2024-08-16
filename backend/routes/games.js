@@ -30,6 +30,20 @@ games.get('/:id', async (req, res, next) =>{
 })
 
 
+games.get('/profil/:id', async (req, res, next) =>{
+    try{
+       // console.log(req)
+        let queryResult = await db.gamesProfile(req.params.id)
+        res.json(queryResult)
+    }
+    catch(err){
+        console.log(err)
+        res.sendStatus(500)
+    }
+})
+
+
+
 
 
 games.post('/', async(req, res, next) => {
@@ -59,5 +73,92 @@ games.post('/', async(req, res, next) => {
     }
     res.end()
 })
+
+games.post('/profilpost', async(req, res, next) => {
+
+    //id,name,description,type,year
+    let id  = Math.floor(Math.random() * 300000)
+    
+    let p_id = req.body.p_id
+    let g_id = req.body.g_id
+
+    console.log(p_id)
+   
+
+    let isComplete = id && p_id && g_id
+    if(isComplete){
+        try{
+            let queryResult = await db.createGameProfile(id,p_id,g_id)
+            if(queryResult.affectedRows){
+                console.log("Game_Profile is added")
+            }
+        }
+        catch(err){
+            console.log(err)
+            res.sendStatus(500)
+        }
+    }else{
+        console.log("A field is missing to add a game_profile")
+    }
+    res.end()
+})
+
+games.post('/deletegameprofile', async(req, res, next) => {
+
+    //id,name,description,type,year
+    let id  = Math.floor(Math.random() * 300000)
+    
+    let p_id = req.body.p_id
+    let g_id = req.body.g_id
+
+    console.log(p_id)
+   
+
+    let isComplete = id && p_id && g_id
+    if(isComplete){
+        try{
+            let queryResult = await db.deleteGameProfile(id,p_id,g_id)
+            if(queryResult.affectedRows){
+                console.log("Game_Profile is added")
+            }
+        }
+        catch(err){
+            console.log(err)
+            res.sendStatus(500)
+        }
+    }else{
+        console.log("A field is missing to add a game_profile")
+    }
+    res.end()
+})
+
+
+games.post('/delete', async(req, res, next) => {
+
+    //id,name,description,type,year
+
+    let id = req.body.id
+
+    console.log(id)
+   
+
+    let isComplete = id
+    if(isComplete){
+        try{
+            let queryResult = await db.deleteGame(id)
+            if(queryResult.affectedRows){
+                console.log("Game is deleted")
+            }
+        }
+        catch(err){
+            console.log(err)
+            res.sendStatus(500)
+        }
+    }else{
+        console.log("A field is missing to delete a game")
+    }
+    res.end()
+})
+
 
 module.exports = games

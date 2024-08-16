@@ -47,7 +47,7 @@ class MoviesView extends Component {
         });
       })
       .catch(error => {
-        console.error("Error fetching games:", error);
+        console.error("Error fetching movies:", error);
       });
     }
   }
@@ -70,7 +70,7 @@ class MoviesView extends Component {
         });
       })
       .catch(error => {
-        console.error("Error fetching games:", error);
+        console.error("Error fetching movies:", error);
       });
 
     
@@ -87,7 +87,7 @@ class MoviesView extends Component {
       <div>
 
         <div className="select">
-          <label for="type">TTYPE OF THE GAME:</label>
+          <label for="type">TYPE OF THE MOVIES:</label>
 
           <div className="select-left">
             <select value={this.state.type} name="type" onChange={e => this.setFilter(e.target.value)}>
@@ -118,7 +118,7 @@ class MoviesView extends Component {
                 </div>
                 )
               }) :
-              "There are currently no movies sorry "}
+              "There are currently no movies sorry. "}
           </div>
 
         </div>

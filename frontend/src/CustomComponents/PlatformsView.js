@@ -61,7 +61,7 @@ class PlatformsView extends Component {
               </div>
               )
             }) :
-            "There are currently no platforms sorry"}
+            "There are currently no platforms sorry."}
         </div>
 
       </div>

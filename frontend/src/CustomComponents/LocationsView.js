@@ -66,7 +66,7 @@ class LocationsView extends Component {
         });
       })
       .catch(error => {
-        console.error("Error fetching games:", error);
+        console.error("Error fetching locations:", error);
       });
 
   }
@@ -80,7 +80,7 @@ class LocationsView extends Component {
       <div>
 
         <div className="select">
-          <label for="type">TTYPE OF THE LOCATION:</label>
+          <label for="type">TYPE OF THE LOCATION:</label>
 
           <div className="select-left">
             <select value={this.state.type} name="type" onChange={e => this.setFilter(e.target.value)}>
@@ -109,7 +109,7 @@ class LocationsView extends Component {
                 </div>
                 )
               }) :
-              "There are currently no location sorry"}
+              "There are currently no locations sorry"}
           </div>
 
         </div>

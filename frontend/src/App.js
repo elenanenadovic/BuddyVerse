@@ -41,8 +41,7 @@ class App extends React.Component {
       gameID: obj.id || 0,
       movieID: obj.id || 0,
       locationID: obj.id || 0,
-      type: obj.type || "all",
-      profileID: obj.pid || 0
+      type: obj.type || "all"
     });
   };
 
@@ -75,7 +74,7 @@ class App extends React.Component {
       case "login":
         return <LoginView QUserFromChild={this.QHandleUserLog} />;
       case "game":
-        return <SingleGameView QViewFromChild={this.QSetView} data={this.state.gameID} type={this.state.type} />;
+        return <SingleGameView ma = {this.QHandleProfile} pid = {this.state.profileID} logged = {this.state.userStatus.logged} QViewFromChild={this.QSetView} data={this.state.gameID} type={this.state.type} />;
       case "movie":
         return <SingleMovieView QViewFromChild={this.QSetView} data={this.state.movieID} type={this.state.type} />;
       case "location":
@@ -97,6 +96,13 @@ class App extends React.Component {
   QHandleProfile = (obj) =>{
     this.setState({
       profileID: obj.id
+    })
+  }
+
+  QHandleGame  = (obj) =>{
+    this.setState({
+      gameID: obj.id,
+      currentPage: obj.page
     })
   }
 
