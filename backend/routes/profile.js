@@ -29,6 +29,18 @@ profile.get('/:id', async (req, res, next) =>{
 })
 
 
+profile.get('/profil/:id', async (req, res, next) =>{
+    try{
+        let queryResult = await db.oneProfileP(req.params.id)
+        res.json(queryResult)
+    }
+    catch(err){
+        console.log(err)
+        res.sendStatus(500)
+    }
+})
+
+
 
 
 profile.post('/', async(req, res, next) => {

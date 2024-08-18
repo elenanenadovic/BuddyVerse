@@ -45,6 +45,36 @@ dataPool.deleteGame=(id)=>{
     })
   })
 }
+dataPool.deletePlatform=(id)=>{
+  return new Promise ((resolve, reject)=>{
+      
+    conn.query(`DELETE FROM Platform WHERE id = ?`, [id], (err,res)=>{
+      if(err){return reject(err)}
+      return resolve(res)
+    })
+  })
+}
+
+dataPool.deleteMovie=(id)=>{
+  return new Promise ((resolve, reject)=>{
+      
+    conn.query(`DELETE FROM Movie WHERE id = ?`, [id], (err,res)=>{
+      if(err){return reject(err)}
+      return resolve(res)
+    })
+  })
+}
+
+dataPool.deleteLocation=(id)=>{
+  return new Promise ((resolve, reject)=>{
+      
+    conn.query(`DELETE FROM Location WHERE id = ?`, [id], (err,res)=>{
+      if(err){return reject(err)}
+      return resolve(res)
+    })
+  })
+}
+
 
 
 dataPool.allMovies = () => {
@@ -67,7 +97,7 @@ dataPool.oneMovie=(id)=>{
 dataPool.createMovie=(id, genre, cinema, year, name, description, url)=>{
   return new Promise ((resolve, reject)=>{
       
-    conn.query(`INSERT INTO Movie (id, genre, cinema, year, name, description, url) VALUES (?,?,?,?,?,?, ?)`, [id, genre, cinema, year, name, description, url], (err,res)=>{
+    conn.query(`INSERT INTO Movie (id, genre, ciema, year, name, description, url) VALUES (?,?,?,?,?,?, ?)`, [id, genre, cinema, year, name, description, url], (err,res)=>{
       if(err){return reject(err)}
       return resolve(res)
     })
@@ -83,6 +113,15 @@ dataPool.allLocations = () => {
       })      
   })
 } 
+dataPool.allLocationComments = (id) => {
+  return new Promise((resolve,reject) => {
+      conn.query(`SELECT * FROM Location_comment WHERE l_id = ?`, id, (err,res)=>{
+          if(err){return reject(err)}
+          return resolve(res)
+      })      
+  })
+} 
+
 dataPool.oneLocation=(id)=>{
   return new Promise ((resolve, reject)=>{
       conn.query(`SELECT * FROM Location WHERE id = ?`, id, (err,res)=>{
@@ -211,9 +250,30 @@ dataPool.oneProfile=(id)=>{
   })
 }
 
+dataPool.oneProfileP=(id)=>{
+  return new Promise ((resolve, reject)=>{
+      conn.query(`SELECT * FROM Profile WHERE id = ?`, id, (err,res)=>{
+          if(err){return reject(err)}
+          return resolve(res)
+      })
+  })
+}
+
+
+
+
 dataPool.createProfile=(id,age,surname,name,icon,city,description,u_id)=>{
   return new Promise ((resolve, reject)=>{
     conn.query(`INSERT INTO Movie (id,age,surname,name,icon,city,description,u_id) VALUES (?,?,?,?,?,?,?,?)`, [id,age,surname,name,icon,city,description,u_id], (err,res)=>{
+      if(err){return reject(err)}
+      return resolve(res)
+    })
+  })
+}
+
+dataPool.postCommentLocation=(id, p_id, l_id, text)=>{
+  return new Promise ((resolve, reject)=>{
+    conn.query(`INSERT INTO Location_comment (id, p_id, l_id, text) VALUES (?,?,?,?)`, [id, p_id, l_id, text], (err,res)=>{
       if(err){return reject(err)}
       return resolve(res)
     })

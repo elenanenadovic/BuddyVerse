@@ -36,13 +36,15 @@ class ProfileView extends Component {
   async componentDidMount() {
     try {
 
-      let res = await axios.get(`http://88.200.63.148:4567/profile/` + this.props.user[1]);
+      let res = await axios.get(`http://88.200.63.148:4567/profile/` + this.props.user[1])//props user
       this.setState({
         prof: res.data
       });
       console.log(res.data[0].id)
       this.QSendUser2Parent({ id: res.data[0].id });
-      let res2 = await axios.get(`http://88.200.63.148:4567/platforms/` + this.props.id);
+      let res2 = await axios.get(`http://88.200.63.148:4567/platforms/` + this.props.id)
+
+      //console.log("ovde");
       //console.log(res.data);
       let platformIds = res2.data.map(d => d.pp_id);
       //console.log(platformIds)
@@ -57,8 +59,8 @@ class ProfileView extends Component {
         platforms: platformsData
       });
 
-
-      let games = await axios.get(`http://88.200.63.148:4567/games/profil/` + this.props.id);
+      //trebaju i games i platforms ali platforms dodaj posle addovanje na profil
+      let games = await axios.get(`http://88.200.63.148:4567/games/profil/` + this.props.id)//props id
       console.log(games.data);
 
       let gameIDs = games.data.map(d => d.g_id);

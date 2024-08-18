@@ -58,4 +58,32 @@ movies.post('/', async(req, res, next) => {
     res.end()
 })
 
+movies.post('/delete', async(req, res, next) => {
+
+    //id,name,description,type,year
+
+    let id = req.body.id
+
+    console.log(id)
+   
+
+    let isComplete = id
+    if(isComplete){
+        try{
+            let queryResult = await db.deleteMovie(id)
+            if(queryResult.affectedRows){
+                console.log("Movie is deleted")
+            }
+        }
+        catch(err){
+            console.log(err)
+            res.sendStatus(500)
+        }
+    }else{
+        console.log("A field is missing to delete a movie")
+    }
+    res.end()
+})
+
+
 module.exports = movies

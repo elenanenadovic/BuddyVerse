@@ -69,4 +69,30 @@ platforms.post('/', async(req, res, next) => {
     res.end()
 })
 
+platforms.post('/delete/', async(req, res, next) => {
+
+    //id name description url
+    let id = req.body.id
+
+    console.log(id)
+   
+
+    let isComplete = id
+    if(isComplete){
+        try{
+            let queryResult = await db.deletePlatform(id)
+            if(queryResult.affectedRows){
+                console.log("Platform is deleted")
+            }
+        }
+        catch(err){
+            console.log(err)
+            res.sendStatus(500)
+        }
+    }else{
+        console.log("A field is missing to delete a platform")
+    }
+    res.end()
+})
+
 module.exports = platforms
