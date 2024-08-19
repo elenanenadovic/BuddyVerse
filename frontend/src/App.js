@@ -71,7 +71,7 @@ class App extends React.Component {
       case "addgame":
         return state.userStatus.logged ? <AddGameView QViewFromChild={this.QSetView} /> : "Loading";
       case "signup":
-        return <SignupView QUserFromChild={this.QHandleUserLog} />;
+        return <SignupView QUserFromChild={this.QHandleUserLog} changeview = {this.QSetView} />;
       case "login":
         return <LoginView QUserFromChild={this.QHandleUserLog} />;
       case "game":

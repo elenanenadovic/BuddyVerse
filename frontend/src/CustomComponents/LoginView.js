@@ -87,8 +87,8 @@ class LoginView extends Component {
         </form>
         <button
           onClick={() => this.QPostLogin()}
-          style={{ color : "white", background: "black", width: "30%", margin : "auto", border: "none", marginBottom: "3%", fontWeight: "900"}}
-          className="btn btn-primary bt"
+          style={{ color : "white", width: "30%", margin : "auto", border: "none", marginBottom: "3%", fontWeight: "900"}}
+          className="btn btn-primary bt" id = "signup-button"
         >
           LOGIN
         </button>
