@@ -2,6 +2,24 @@ const express= require("express")
 const applications = express.Router()
 const db = require("../db/conn")
 
+
+applications.get('/:id', async (req, res, next) =>{
+    try{
+       // console.log(req)
+        let queryResult = await db.profileApplications(req.params.id)
+        res.json(queryResult)
+    }
+    catch(err){
+        console.log(err)
+        res.sendStatus(500)
+    }
+})
+
+
+
+
+
+
 applications.post('/', async(req, res, next) => {
 
     let id = req.body.id

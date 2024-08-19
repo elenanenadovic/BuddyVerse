@@ -53,12 +53,14 @@ profile.post('/', async(req, res, next) => {
     let icon = req.body.icon
     let city = req.body.city
     let description = req.body.description
-    let u_id = req.body.uid
+    let u_id = req.body.u_id
+    let nickname = req.body.nickname
+
 
     let isComplete = name && age && id && surname && icon && city && description && u_id
     if(isComplete){
         try{
-            let queryResult = await db.createProfile(id,age,surname,name,icon,city,description,u_id)
+            let queryResult = await db.createProfile(id,age,surname,name,icon,city,description,u_id,nickname)
             if(queryResult.affectedRows){
                 console.log("Game is added")
             }
@@ -68,6 +70,14 @@ profile.post('/', async(req, res, next) => {
             res.sendStatus(500)
         }
     }else{
+        console.log(id)
+        console.log(u_id)
+        console.log(name)
+        console.log(surname)
+        console.log(nickname)
+        console.log(age)
+        console.log(icon)
+        console.log(description)
         console.log("A field is missing to add a game")
     }
     res.end()

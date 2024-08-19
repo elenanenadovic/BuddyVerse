@@ -31,7 +31,8 @@ class App extends React.Component {
       },
       type: "all",
       profile: false,
-      profileID: 0
+      profileID: 0,
+      hasprofile: 0
     };
   }
 
@@ -58,7 +59,7 @@ class App extends React.Component {
 
     switch (page) {
       case "home":
-        return <HomeView />;
+        return <HomeView changeview = {this.QSetView} />;
       case "about":
         return <AboutView />;
       case "games":
@@ -82,7 +83,7 @@ class App extends React.Component {
       case "platforms":
         return <PlatformsView QIDFromChild={this.QSetView} />;
       case "profile":
-        return <ProfileView  QProfileFromChild={this.QHandleProfile}  QIDFromChild={this.QSetView} user = {this.state.userStatus.user} id = {this.state.profileID} />;
+        return <ProfileView login = {this.QHandleUserLogOut} QProfileFromChild={this.QHandleProfile}  QIDFromChild={this.QSetView} user = {this.state.userStatus.user} id = {this.state.profileID} />;
 
     }
   };
@@ -90,6 +91,13 @@ class App extends React.Component {
   QHandleUserLog = (obj) => {
     this.setState({
       userStatus: { logged: true, user: obj }
+    })
+  };
+
+  
+  QHandleUserLogOut = () => {
+    this.setState({
+      userStatus: { logged: false, user: {} }
     })
   };
 
@@ -111,12 +119,12 @@ class App extends React.Component {
     return (
 
       <div id="APP" className="container-fluid">
-        <div id="menu" className="row">
+         <div id="menu" className="row">
           <nav className="navbar navbar-expand-lg navbar-dark ">
             <div className="container-fluid">
               <a
                 onClick={() => this.QSetView({ page: "home" })}
-                className="navbar-brand"
+                className="nav-link"
                 href="#"
               >
                 HOME
@@ -188,7 +196,7 @@ class App extends React.Component {
                     </a>
                   </li>
 
-
+                {this.state.userStatus.logged && this.state.profileID == 0 &&
                   <li className="nav-item">
                     <a
                       onClick={() => this.QSetView({ page: "addgame" })}
@@ -198,6 +206,8 @@ class App extends React.Component {
                       ADD A GAME
                     </a>
                   </li>
+
+                  }
 
                   {!this.state.userStatus.logged && (
                     <>
@@ -246,7 +256,9 @@ class App extends React.Component {
           </nav>
 
 
-        </div>
+        </div> 
+      
+        
 
         <div id="viewer" >
           {this.QGetView(this.state)}

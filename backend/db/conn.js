@@ -190,6 +190,18 @@ dataPool.gamesProfile = (id) => {
   })
 }
 
+
+dataPool.profileApplications = (id) => {
+  return new Promise((resolve, reject) => {
+    conn.query(`SELECT * FROM Application WHERE p_id = ?`, id, (err, res) => {
+      if (err) { return reject(err) }
+      console.log(resolve(res))
+      return resolve(res)
+    })
+  })
+}
+
+
 dataPool.deleteGameProfile = (id, p_id, g_id) => {
   return new Promise((resolve, reject) => {
 
@@ -295,9 +307,9 @@ dataPool.platformId = (id) => {
 
 
 
-dataPool.createProfile = (id, age, surname, name, icon, city, description, u_id) => {
+dataPool.createProfile = (id, age, surname, name, icon, city, description, u_id, nickname) => {
   return new Promise((resolve, reject) => {
-    conn.query(`INSERT INTO Movie (id,age,surname,name,icon,city,description,u_id) VALUES (?,?,?,?,?,?,?,?)`, [id, age, surname, name, icon, city, description, u_id], (err, res) => {
+    conn.query(`INSERT INTO Profile (id,age,surname,name,icon,city,description,u_id, nickname) VALUES (?,?,?,?,?,?,?,?,?)`, [id, age, surname, name, icon, city, description, u_id, nickname], (err, res) => {
       if (err) { return reject(err) }
       return resolve(res)
     })
