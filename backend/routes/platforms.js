@@ -42,6 +42,20 @@ platforms.get('/profil/:id', async (req, res, next) =>{
     }
 })
 
+platforms.get('/id/:id', async (req, res, next) =>{
+    try{
+       console.log("UPAO")
+       console.log(req.params.id)
+        let queryResult = await db.platformId(req.params.id)
+        res.json(queryResult)
+    }
+    catch(err){
+        console.log(err)
+        res.sendStatus(500)
+    }
+})
+
+
 
 platforms.post('/', async(req, res, next) => {
 
@@ -94,5 +108,36 @@ platforms.post('/delete/', async(req, res, next) => {
     }
     res.end()
 })
+
+
+platforms.post('/profile', async(req, res, next) => {
+
+    //id name description url
+    let id = req.body.id
+    let nick = req.body.nick
+    let p_id = req.body.p_id
+    let pp_id = req.body.pp_id
+
+    console.log(id)
+   
+
+    let isComplete = id && nick && p_id && pp_id
+    if(isComplete){
+        try{
+            let queryResult = await db.addPlatformProfile(id, p_id, pp_id, nick )
+            if(queryResult.affectedRows){
+                console.log("Platform is deleted")
+            }
+        }
+        catch(err){
+            console.log(err)
+            res.sendStatus(500)
+        }
+    }else{
+        console.log("A field is missing to delete a platform")
+    }
+    res.end()
+})
+
 
 module.exports = platforms

@@ -40,6 +40,55 @@ locations.get('/comments/:id', async (req, res, next) =>{
     }
 })
 
+locations.post('/like', async (req, res, next) =>{
+    let id = req.body.id
+    let likes = req.body.likes + 1
+    let isComplete = id && likes
+
+    console.log(id)
+    console.log(likes)
+    if(isComplete){
+        try{
+            let queryResult = await db.likeLocation(id, likes)
+            if(queryResult.affectedRows){
+                console.log("Location like is added")
+            }
+        }
+        catch(err){
+            console.log(err)
+            res.sendStatus(500)
+        }
+    }else{
+        console.log("A field is missing to add a location")
+    }
+    res.end()
+})
+
+locations.post('/dislike', async (req, res, next) =>{
+    let id = req.body.id
+    let likes = req.body.likes + 1
+    let isComplete = id && likes
+
+    console.log(id)
+    console.log(likes)
+    if(isComplete){
+        try{
+            let queryResult = await db.dislikeLocation(id, likes)
+            if(queryResult.affectedRows){
+                console.log("Location like is added")
+            }
+        }
+        catch(err){
+            console.log(err)
+            res.sendStatus(500)
+        }
+    }else{
+        console.log("A field is missing to add a location")
+    }
+    res.end()
+})
+
+
 locations.post('/', async(req, res, next) => {
 
     //	id 	address 	likes 	dislikes 	type 	description 	name 	url

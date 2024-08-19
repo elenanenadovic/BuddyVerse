@@ -11,7 +11,8 @@ class SingleLocationView extends Component {
       profileid: [],
       profili: [],
       comment: { text: "" },
-      changed: false
+      changed: false,
+      liked: 0
     }
   }
 
@@ -100,6 +101,35 @@ class SingleLocationView extends Component {
     });
   }
 
+  Like = () =>{
+
+    axios.post("http://88.200.63.148:4567/locations/like",{
+      id: this.props.l_id,
+      likes: this.state.location[0]?.likes
+    }).then(res=>{
+      this.setState({
+        liked: this.state.liked+1
+      })
+      this.componentDidMount()
+    });
+
+  }
+
+  Dislike = () =>{
+
+    axios.post("http://88.200.63.148:4567/locations/dislike",{
+      id: this.props.l_id,
+      likes: this.state.location[0]?.dislikes
+    }).then(res=>{
+      this.setState({
+        liked: this.state.liked+1
+      })
+      this.componentDidMount()
+    });
+
+  }
+
+
   render() {
 
     let location = this.state.location
@@ -153,7 +183,12 @@ class SingleLocationView extends Component {
           : "Loading..."}
 
         {this.props.logged ? (
+
+          
           <div>
+            <br></br><br></br>
+            <p className="comments-like">LIKES: {location[0]?.likes}</p> <button onClick = {this.Like} className="comments-likebutton"> &lt;3 </button><br></br><br></br>
+            <p className="comments-like">DISLIKES: {location[0]?.dislikes}</p><button onClick = {this.Dislike} className = "comments-likebutton">&lt;/3</button>
             <p className="comments-main">LEAVE A COMMENT:</p>
             <p className="comments-sub">*please note that all comments against the guidelines will be permanently deleted</p>
             <p className="comments-sub">*all posted comments will be linked directly to your profile</p>
@@ -169,7 +204,7 @@ class SingleLocationView extends Component {
           </div>
         ) : (
           <div>
-            <p className="comments-notlogged">To leave a comment, you must have a profile.</p>
+            <p className="comments-notlogged">To leave like, dislike or leave a comment, you must have a profile and be logged in.</p>
           </div>
         )}
 

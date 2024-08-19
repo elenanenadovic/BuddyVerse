@@ -7,7 +7,7 @@ class PlatformsView extends Component {
     super(props)
     this.state = {
       platforms: [],
-      link: [],
+      link: []
     }
   }
 
@@ -36,6 +36,8 @@ class PlatformsView extends Component {
         })
       })
 
+    
+
 
   }
 
@@ -45,13 +47,13 @@ class PlatformsView extends Component {
 
     return (
       
-      <div className = "games-body">
+      <div className = "platforms-body">
     
         <div className="row row-cols-1 row-cols-md-6 g-4" style={{ margin: "10px" }}>
           {data.length > 0 ?
             data.map(d => {
               return (<div className="col" key={d.id}>
-                <h5 className="card-title">{d.name}</h5>
+                <h5 className="platforms-title">{d.name}</h5>
                 <div className="card">
                   <div className="card-body">
                   <a href={d.description} target="_blank"><img className="games-image" src = {d.url}></img></a>
