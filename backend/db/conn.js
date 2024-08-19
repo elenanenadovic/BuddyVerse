@@ -141,6 +141,16 @@ dataPool.createLocation = (id, address, likes, dislikes, type, description, name
   })
 }
 
+dataPool.createApplication = (id, p_id, m_id, text, phone) => {
+  return new Promise((resolve, reject) => {
+
+    conn.query(`INSERT INTO Application (id, p_id, m_id, text, phone) VALUES (?,?,?,?,?)`, [id, p_id, m_id, text, phone], (err, res) => {
+      if (err) { return reject(err) }
+      return resolve(res)
+    })
+  })
+}
+
 dataPool.allPlatforms = () => {
   return new Promise((resolve, reject) => {
     conn.query(`SELECT * FROM Platform`, (err, res) => {

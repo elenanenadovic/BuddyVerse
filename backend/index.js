@@ -15,6 +15,7 @@ const locations = require("./routes/locations")
 const platforms = require("./routes/platforms")
 const profile = require("./routes/profile")
 const comments = require("./routes/comments")
+const applications = require("./routes/applications")
 
 
 //to read json objects
@@ -40,6 +41,7 @@ app.listen(process.env.PORT || port, ()=>{
 
 //routes
 app.use('/locations', locations)
+app.use('/applications', applications)
 app.use('/movies', movies)
 app.use('/games', games);
 app.use('/user', user);

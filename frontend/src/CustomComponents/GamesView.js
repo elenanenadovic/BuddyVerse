@@ -105,8 +105,8 @@ class GameView extends Component {
             
 
             <select name="date" onChange={e => this.setFilter2(e.target.value)}>
-              <option value="newest">MOST RECENT</option>
-              <option value="oldest">LEAST RECENT</option>
+              <option value="newest">Most recently added</option>
+              <option value="oldest">Least recently added</option>
             </select>
           </div>
         </div>

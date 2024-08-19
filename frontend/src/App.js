@@ -76,7 +76,7 @@ class App extends React.Component {
       case "game":
         return <SingleGameView ma = {this.QHandleProfile} pid = {this.state.profileID} logged = {this.state.userStatus.logged} QViewFromChild={this.QSetView} data={this.state.gameID} type={this.state.type} />;
       case "movie":
-        return <SingleMovieView QViewFromChild={this.QSetView} data={this.state.movieID} type={this.state.type} />;
+        return <SingleMovieView logged =  {this.state.userStatus.logged} pid = {this.state.profileID} QViewFromChild={this.QSetView} data={this.state.movieID} type={this.state.type} />;
       case "location":
         return <SingleLocationView  p_id = {this.state.profileID} l_id = {this.state.locationID} logged = {this.state.userStatus.logged} QViewFromChild={this.QSetView} data={this.state.locationID} type={this.state.type} />;
       case "platforms":
