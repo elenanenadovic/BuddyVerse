@@ -4,6 +4,10 @@ import picture from './images/sims.png';
 
 class HomeView extends Component {
 
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
+
   render() {
     return (
 
@@ -85,7 +89,7 @@ class HomeView extends Component {
                       </h3>
                       <p className="blongtext">Dive into our dynamic collection of games, where you'll find everything from fast-paced trivia and strategy challenges to immersive multiplayer adventures. </p>
 
-                      <a href="#" className="bbutton">Go to games!</a>
+                      <button onClick={() => this.props.changeview({ page: "games" })} className="bbutton">Go to games!</button>
                     </div>
                   </div>
 
@@ -102,7 +106,7 @@ class HomeView extends Component {
                       </h3>
                       <p className="blongtext">Welcome to the cinematic universe of Buddyverse! Here, you can immerse yourself in the magic of movies and connect with fellow film enthusiasts like never before.</p>
 
-                      <a href="#" className="bbutton">Go to movies!</a>
+                      <button onClick={() => this.props.changeview({ page: "movies" })} className="bbutton">Go to movies!</button>
                     </div>
                   </div>
 
@@ -119,7 +123,7 @@ class HomeView extends Component {
                       </h3>
                       <p className="blongtext">We’ve carefully curated a selection of trusted locations for your in-person meetups, ensuring that you can connect with new friends in a secure environment.</p>
 
-                      <a href="#" className="bbutton">Go to locations!</a>
+                      <button onClick={() => this.props.changeview({ page: "locations" })} className="bbutton">Go to locations!</button>
                     </div>
                   </div>
 
@@ -135,7 +139,7 @@ class HomeView extends Component {
             Become a buddy!
           </div>
           <div>
-            <button type="button" className="signup">CLICK ME</button>
+            <button onClick={() => this.props.changeview({ page: "signup" })} type="button" className="signup">CLICK ME</button>
           </div>
         </div>
 
@@ -144,72 +148,28 @@ class HomeView extends Component {
             <div className="footer-cta pt-5 pb-5">
               <div className="row">
                 <div className="col-xl-4 col-md-4 mb-30">
-                  <h4 className="footert">Find us</h4>
-                  <span className="footerp">Crvenka Ulica 5000, Srbija</span>
+                  <h4 className="footert">Our sponsor:</h4>
+                  <div className="footer-logo">
+                    <a href="index.html"><img src="https://www.stark.rs/img/stark-beli-logo.webp" class="img-fluid" alt="logo"></img></a>
+                  </div>
+
 
                 </div>
 
                 <div className="col-xl-4 col-md-4 mb-30">
-                  <h4 className="footert">Call us</h4>
-                  <span className="footerp">069876578</span>
+                  <h4 className="footert">Call us:</h4>
+                  <span className="footerp">+381 958 7865</span>
                 </div>
 
 
                 <div className="col-xl-4 col-md-4 mb-30">
-                  <h4 className="footert">Mail us</h4>
+                  <h4 className="footert">Mail us:</h4>
                   <span className="footerp">buddyverse@info.com</span>
                 </div>
               </div>
             </div>
-
-
-            <div className="footer-content pt-5 pb-5">
-              <div className="row">
-                <div className="col-xl-4 col-lg-4 mb-50">
-                  <div className="footer-widget">
-                    <div className="footerp">
-                      Our sponsor:
-                    </div>
-                    <br></br>
-                    <div className="footer-logo">
-                      <a href="index.html"><img src="https://www.stark.rs/img/stark-beli-logo.webp" class="img-fluid" alt="logo"></img></a>
-                    </div>
-
-                    
-
-                  </div>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
-                  <div class="footer-widget">
-                    <div class="footer-widget-heading">
-                      <h3>Useful Links</h3>
-                    </div>
-                    <ul className="footerp">
-                      <li><a href="#">Rules</a></li>
-                      <li><a href="#">Terms of services</a></li>
-                      <li><a href="#">Locations agreement</a></li>
-                      <li><a href="#">Cineplexx</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
-                  <div class="footer-widget">
-                    <div class="footer-widget-heading">
-                      <h3>Subscribe</h3>
-                    </div>
-                    <div class="footer-text mb-25">
-                      <p>Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
-                    </div>
-                    <div class="subscribe-form">
-                      <form action="#">
-                        <input type="text" placeholder="Email Address"></input>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
+
           <div class="copyright-area">
             <div class="container">
 
@@ -223,6 +183,7 @@ class HomeView extends Component {
 
             </div>
           </div>
+
         </footer>
 
 

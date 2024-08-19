@@ -109,7 +109,7 @@ class SingleGameView extends Component {
 
 
                 <p className="singlegame-description">{game[0].description}</p>
-                {this.props.logged && (
+                {this.props.logged && this.props.pid != 0 && (
                   <>
                     {!isAdded ? (
                       <button onClick={() => this.PostGame()} className="singlegame-add">+</button>
@@ -136,6 +136,8 @@ class SingleGameView extends Component {
           </div>
 
           : "Loading..."}
+
+          
       </div>
 
     );

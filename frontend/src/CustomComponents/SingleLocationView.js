@@ -182,7 +182,7 @@ class SingleLocationView extends Component {
           </div>
           : "Loading..."}
 
-        {this.props.logged ? (
+        {this.props.logged && this.props.p_id? (
 
           
           <div>

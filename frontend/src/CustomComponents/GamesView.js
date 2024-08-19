@@ -130,6 +130,49 @@ class GameView extends Component {
           </div>
 
         </div>
+
+        <footer className="footer-section">
+          <div className="container">
+            <div className="footer-cta pt-5 pb-5">
+              <div className="row">
+                <div className="col-xl-4 col-md-4 mb-30">
+                  <h4 className="footert">Our sponsor:</h4>
+                  <div className="footer-logo">
+                    <a href="index.html"><img src="https://www.stark.rs/img/stark-beli-logo.webp" class="img-fluid" alt="logo"></img></a>
+                  </div>
+
+
+                </div>
+
+                <div className="col-xl-4 col-md-4 mb-30">
+                  <h4 className="footert">Call us:</h4>
+                  <span className="footerp">+381 958 7865</span>
+                </div>
+
+
+                <div className="col-xl-4 col-md-4 mb-30">
+                  <h4 className="footert">Mail us:</h4>
+                  <span className="footerp">buddyverse@info.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="copyright-area">
+            <div class="container">
+
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 text-center text-lg-center ">
+                  <div class="copyright-text">
+                    <p>Copyright &copy; 2024, All Right Reserved </p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </footer>
       </div>
     );
   }

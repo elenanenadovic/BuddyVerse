@@ -89,7 +89,7 @@ class SingleMovieView extends Component {
                 <img className="singlegame-image" src={movie[0].url}></img>
               </div>
 
-              {this.props.logged ?
+              {this.props.logged && this.props.pid?
 
                 <div className="singlegame-right">
 
