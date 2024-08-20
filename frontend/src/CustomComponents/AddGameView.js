@@ -15,7 +15,7 @@ class AddGameView extends Component {
   PostGame = () => {
     let idr = Math.floor(Math.random() * 10000);
     console.log(this.state.game.name)
-    axios.post("http://88.200.63.148:4567/games", {
+    axios.post("/games", {
       id: idr,
       name: this.state.game.name,
       description: this.state.game.description,
@@ -31,7 +31,7 @@ class AddGameView extends Component {
   PostMovie = () => {
     let idr = Math.floor(Math.random() * 10000);
     console.log(this.state.game.name)
-    axios.post("http://88.200.63.148:4567/movies", {
+    axios.post("/movies", {
       id: idr,
       name: this.state.game.name,
       description: this.state.game.description,
@@ -49,7 +49,7 @@ class AddGameView extends Component {
     let idr = Math.floor(Math.random() * 10000);
     console.log(this.state.game.name)
     console.log(this.state.game.type)
-    axios.post("http://88.200.63.148:4567/locations", {
+    axios.post("/locations", {
       id: idr,
       name: this.state.game.name,
       description: this.state.game.description,
@@ -66,7 +66,7 @@ class AddGameView extends Component {
     let idr = Math.floor(Math.random() * 10000);
     console.log(this.state.game.name)
     console.log(this.state.game.type)
-    axios.post("http://88.200.63.148:4567/platforms", {
+    axios.post("/platforms", {
       id: idr,
       name: this.state.game.name,
       description: this.state.game.description,
@@ -89,7 +89,7 @@ class AddGameView extends Component {
       })
     }
     else {
-      axios.post("http://88.200.63.148:4567/games/delete", {
+      axios.post("/games/delete", {
         id: gameID
       }).then(res => {
         console.log("Sent to server...");
@@ -108,7 +108,7 @@ class AddGameView extends Component {
       })
     }
     else {
-      axios.post("http://88.200.63.148:4567/movies/delete", {
+      axios.post("/movies/delete", {
         id: movieID
       }).then(res => {
         console.log("Sent to server...");
@@ -127,7 +127,7 @@ class AddGameView extends Component {
       })
     }
     else {
-      axios.post("http://88.200.63.148:4567/locations/delete", {
+      axios.post("/locations/delete", {
         id: locationID
       }).then(res => {
         console.log("Sent to server...");
@@ -146,7 +146,7 @@ class AddGameView extends Component {
       })
     }
     else {
-      axios.post("http://88.200.63.148:4567/platforms/delete", {
+      axios.post("/platforms/delete", {
         id: platformID
       }).then(res => {
         console.log("Sent to server...");

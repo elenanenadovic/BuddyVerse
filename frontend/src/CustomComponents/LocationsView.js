@@ -27,7 +27,7 @@ class LocationsView extends Component {
   //zarez
   componentDidMount() {
     if (this.state.type == "all") {
-      axios.get("http://88.200.63.148:4567/locations",)
+      axios.get("/locations",)
         .then(res => {
           this.setState({
             locations: res.data
@@ -35,7 +35,7 @@ class LocationsView extends Component {
         })
     }
     else {
-      axios.get("http://88.200.63.148:4567/locations")
+      axios.get("/locations")
         .then(res => {
           let filteredGames = res.data.filter((element) => element.type === this.props.type)
           this.setState({
@@ -51,7 +51,7 @@ class LocationsView extends Component {
 
 
   setFilter(e) {
-    axios.get("http://88.200.63.148:4567/locations")
+    axios.get("/locations")
       .then(res => {
         let filteredGames = res.data.filter((element) => element.type === e);
         console.log(filteredGames)

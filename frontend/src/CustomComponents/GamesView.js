@@ -15,7 +15,7 @@ class GameView extends Component {
 
   componentDidMount() {
     if (this.state.type == "all") {
-      axios.get("http://88.200.63.148:4567/games",)
+      axios.get("/games",)
         .then(res => {
           this.setState({
             games: res.data
@@ -23,7 +23,7 @@ class GameView extends Component {
         })
     }
     else{
-      axios.get("http://88.200.63.148:4567/games")
+      axios.get("/games")
       .then(res => {
         let filteredGames =  res.data.filter((element) => element.type === this.props.type)
         this.setState({
@@ -50,7 +50,7 @@ class GameView extends Component {
 
 
   setFilter(e) {
-    axios.get("http://88.200.63.148:4567/games")
+    axios.get("/games")
       .then(res => {
 
         let filteredGames =  res.data.filter((element) => element.type === e);

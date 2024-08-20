@@ -23,7 +23,7 @@ class SingleMovieView extends Component {
 
 
   componentDidMount() {
-    axios.get("http://88.200.63.148:4567/movies/" + this.props.data)
+    axios.get("/movies/" + this.props.data)
 
       .then(res => {
         console.log(this.props.type)
@@ -45,7 +45,7 @@ class SingleMovieView extends Component {
     if (this.phoneValidation(this.state.application.phone)) {
       let idr = Math.floor(Math.random() * 10000);
       console.log(this.state.application.phone)
-      axios.post("http://88.200.63.148:4567/applications", {
+      axios.post("/applications", {
         id: idr,
         m_id: this.props.data,
         text: this.state.application.text,

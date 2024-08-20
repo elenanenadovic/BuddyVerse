@@ -30,7 +30,7 @@ class MoviesView extends Component {
   //zarez
   componentDidMount() {
     if (this.state.type == "all") {
-      axios.get("http://88.200.63.148:4567/movies",)
+      axios.get("/movies",)
         .then(res => {
           this.setState({
             movies: res.data
@@ -38,7 +38,7 @@ class MoviesView extends Component {
         })
     }
     else{
-      axios.get("http://88.200.63.148:4567/movies")
+      axios.get("/movies")
       .then(res => {
         let filteredGames =  res.data.filter((element) => element.genre === this.props.type)
         this.setState({
@@ -54,7 +54,7 @@ class MoviesView extends Component {
 
 
   setFilter(e) {
-    axios.get("http://88.200.63.148:4567/movies")
+    axios.get("/movies")
       .then(res => {
         
         let filteredGames =  res.data.filter((element) => element.genre === e);

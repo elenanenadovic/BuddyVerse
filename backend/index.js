@@ -1,9 +1,11 @@
 const express = require('express')
 const cookieParser = require("cookie-parser")
+const path = require('path')
 const app = express()
 const port = 4567
 const dotenv = require("dotenv")
 const cors = require("cors")
+
 
 dotenv.config()
 
@@ -19,6 +21,7 @@ const applications = require("./routes/applications")
 
 
 //to read json objects
+app.use(express.static(path.join(__dirname, "build")))
 app.use(cookieParser("somesecret"))
 app.use(express.json())
 app.use(express.urlencoded({extended : true}));
@@ -31,7 +34,8 @@ app.use(cors({
 
 //app.use(cors())
 app.get("/",(req,res)=>{
-    res.send("hola")
+   res.sendFile(path.join(__dirname, "build", "index.html"))
+    res.send("nja")
 })
 
 

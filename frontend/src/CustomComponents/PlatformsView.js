@@ -29,7 +29,7 @@ class PlatformsView extends Component {
   
   //zarez
   componentDidMount() {
-    axios.get("http://88.200.63.148:4567/platforms",)
+    axios.get("/platforms",)
       .then(res => {
         this.setState({
           platforms: res.data

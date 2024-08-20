@@ -31,9 +31,10 @@ platforms.get('/:id', async (req, res, next) =>{
 
 platforms.get('/profil/:id', async (req, res, next) =>{
     try{
-       console.log("UPAO")
+       //onsole.log("UPAO")
        console.log(req.params.id)
         let queryResult = await db.allProfilePlatforms(req.params.id)
+
         res.json(queryResult)
     }
     catch(err){
@@ -44,8 +45,8 @@ platforms.get('/profil/:id', async (req, res, next) =>{
 
 platforms.get('/id/:id', async (req, res, next) =>{
     try{
-       console.log("UPAO")
-       console.log(req.params.id)
+       //console.log("UPAO")
+       //console.log(req.params.id)
         let queryResult = await db.platformId(req.params.id)
         res.json(queryResult)
     }

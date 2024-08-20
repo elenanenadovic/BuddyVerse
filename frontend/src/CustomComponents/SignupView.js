@@ -31,33 +31,33 @@ class SignupView extends Component {
     var usernameregex = /^[a-z0-9_-]{3,15}$/;
     var emailregex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/
     var passwordregex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
- //min 8 , 1letter, 1number
+    //min 8 , 1letter, 1number
 
- console.log(username.match(usernameregex))
+    console.log(username.match(usernameregex))
     if (username.match(usernameregex)) {
       console.log("mecujem")
-      if(email.match(emailregex)){
-        if(password.match(passwordregex)){
-          if(password == passwordrepeat){
-            if(this.state.checked){
+      if (email.match(emailregex)) {
+        if (password.match(passwordregex)) {
+          if (password == passwordrepeat) {
+            if (this.state.checked) {
               this.QPostSignUp()
             }
-            else{
+            else {
               alert("You must agree with terms and conditions to proceed.")
             }
           }
-          else{
+          else {
             alert("Passwords are not matching.")
           }
         }
-        else{
+        else {
           alert("Please enter a valid email. Example: buddyverse@gmail.com.")
         }
       }
-      else{
+      else {
         alert("The password is too weak. Please use at least 8 charactrs and 1 number.")
       }
-      
+
     }
     else {
       alert("Please enter a valid username. ");
@@ -69,7 +69,7 @@ class SignupView extends Component {
   QPostSignUp = () => {
     let user = this.state.user
     let idr = Math.floor(Math.random() * 10000);
-    axios.post("http://88.200.63.148:4567/user/register", {
+    axios.post("/user/register", {
       id: idr,
       username: this.state.user.username,
       email: this.state.user.email,
@@ -145,12 +145,12 @@ class SignupView extends Component {
           </div>
         </form>
 
-         <text style = {{marginLeft: "3%", fontStyle: "italic"}}>I agree to terms and conditions</text> <input style = {{marginRight: "93%", marginTop: "2%", padding:"0%" }}type="checkbox" onChange={() => this.checked()}></input>
+        <text style={{ marginLeft: "3%", fontStyle: "italic" }}>I agree to terms and conditions</text> <input style={{ marginRight: "93%", marginTop: "2%", padding: "0%" }} type="checkbox" onChange={() => this.checked()}></input>
 
         <button
           onClick={() => this.signupVlidation(this.state.user.username, this.state.user.password, this.state.user.email, this.state.user.passwordrepeat)}
           style={{ color: "white", width: "30%", margin: "auto", border: "none", marginBottom: "3%", fontWeight: "900", marginTop: "3%" }}
-          className="btn btn-primary bt" id = "signup-button"
+          className="btn btn-primary bt" id="signup-button"
         >
           REGISTER
         </button>
