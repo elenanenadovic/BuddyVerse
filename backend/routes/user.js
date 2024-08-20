@@ -23,25 +23,38 @@ user.get("/login", (req,res)=>{
     }
 })
 
+user.get("/", async (req, res)=>{
+    try{
+         let queryResult = await db.allUsers()
+         res.json(queryResult)
+     }
+     catch(err){
+         console.log(err)
+         res.sendStatus(500)
+     }
+})
 
 user.post('/login', async(req, res) => {
-    console.log(req.body.username)
+    //console.log(req.body.username)
     console.log(req.body.password)
-    let username = req.body.username
+    //let username = req.body.username
     let password = req.body.password
+    let email = req.body.email
 
-    let isComplete = username && password 
+    let isComplete = email && password 
+    console.log(email)
+    console.log(password)
 
     if(isComplete){
         try{
-            let queryResult = await db.authUser(username)
+            let queryResult = await db.authUser(email)
             //checks if user exists
             if(queryResult.length > 0){
                 if(password == queryResult[0].password){
-                    console.log(queryResult[0])
+                    //console.log(queryResult[0])
                     req.session.user = queryResult[0]
                     console.log(queryResult[0])
-                    res.json(queryResult[0].username)
+                    res.json([queryResult[0].username, queryResult[0].id])
                     console.log("SESSION VALID")
                 }else{
                     console.log("incorrect password")

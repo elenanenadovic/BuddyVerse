@@ -8,8 +8,28 @@ class LoginView extends Component {
       user: {
         type: "login",
       },
+      userid: 0,
+      platforms: [],
+      emails: []
     };
   }
+
+  async componentDidMount() {
+    try {
+
+      let res = await axios.get(`http://88.200.63.148:4567/user/`);
+      let emsils = res.data.map(d => d.email);
+      this.setState({
+        emails: emsils
+      });
+      console.log(this.state.emails)
+
+
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
 
   QGetTextFromField = (e) => {
     this.setState((prevState) => ({
@@ -21,30 +41,72 @@ class LoginView extends Component {
     this.props.QUserFromChild(obj);
   };
 
-  QPostLogin = () =>{
-    console.log("tu sam")
-    let user = this.state.user
-    //console.log(this.state.user)
+  loginValidation = () => {
+    console.log(this.state.user.username)
+
+    if (this.state.user.username == undefined) {
+      alert("Please enter email")
+    }
+    else {
+      if (this.state.user.password == undefined) {
+        alert("Please enter password")
+      }
+      else{
+        if(this.state.emails.includes(this.state.user.username)){
+          this.QPostLogin()
+        }
+        else{
+          alert("This email is not registered.")
+        }
+      }
+    }
+  }
+
+
+  QPostLogin = () => {
+    console.log("tu sam");
+    let user = this.state.user;
+    //console.log(this.state.user);
     axios.post("http://88.200.63.148:4567/user/login", {
-      username: user.username,
+      email: user.username,
       password: user.password
-    },{withCredentials: true})
-    .then(res=>{
-      console.log("Sent to server...")
-      console.log(res.data)
-      this.QSendUser2Parent(res.data)
-    })
+    }, { withCredentials: true })
+      .then(res => {
+        console.log("Sent to server...");
+        console.log(res.data);
+        this.QSendUser2Parent(res.data);
+        this.setState({
+          userid: res.data[1]
+        }, () => {
+          this.QPostProfile();
+        });
+      });
+  }
+
+
+
+  QPostProfile = () => {
+    console.log(this.state.userid)
+    axios.get("http://88.200.63.148:4567/profile/" + this.state.userid)
+      .then(res => {
+        this.setState({
+          platforms: res.data
+        })
+        console.log(res.data)
+        this.props.changeview({page: "profile", id: this.state.platforms[0]?.id})
+
+      })
   }
 
   render() {
     console.log(this.state);
     return (
       <div
-        className="card" id = "signup"
+        className="card" id="signup"
       >
         <form style={{ margin: "20px" }}>
           <div className="mb-3">
-            <label className="form-label">Username</label>
+            <label className="form-label">Email</label>
             <input
               onChange={(e) => this.QGetTextFromField(e)}
               name="username"
@@ -65,9 +127,9 @@ class LoginView extends Component {
           </div>
         </form>
         <button
-          onClick={() => this.QPostLogin()}
-          style={{ color : "white", background: "black", width: "30%", margin : "auto", border: "none", marginBottom: "3%", fontWeight: "900"}}
-          className="btn btn-primary bt"
+          onClick={() => this.loginValidation()}
+          style={{ color: "white", width: "30%", margin: "auto", border: "none", marginBottom: "3%", fontWeight: "900" }}
+          className="btn btn-primary bt" id="signup-button"
         >
           LOGIN
         </button>
