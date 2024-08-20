@@ -17,6 +17,16 @@ dataPool.allGames = () => {
     })
   })
 }
+
+dataPool.allUsers = () => {
+  return new Promise((resolve, reject) => {
+    conn.query(`SELECT * FROM User`, (err, res) => {
+      if (err) { return reject(err) }
+      return resolve(res)
+    })
+  })
+}
+
 dataPool.oneGame = (id) => {
   return new Promise((resolve, reject) => {
     conn.query(`SELECT * FROM Game WHERE id = ?`, id, (err, res) => {
@@ -235,9 +245,21 @@ dataPool.createPlatform = (id, name, description, url) => {
 }
 
 
+//allUsersGame
+
+dataPool.allUsersGame = (id) => {
+  return new Promise((resolve, reject) => {
+    conn.query('SELECT p_id FROM Game_profile WHERE g_id = ?', id, (err, res, fields) => {
+      if (err) { return reject(err) }
+      return resolve(res)
+    })
+  })
+
+}
+
 dataPool.authUser = (username) => {
   return new Promise((resolve, reject) => {
-    conn.query('SELECT * FROM User WHERE username = ?', username, (err, res, fields) => {
+    conn.query('SELECT * FROM User WHERE email = ?', username, (err, res, fields) => {
       if (err) { return reject(err) }
       return resolve(res)
     })

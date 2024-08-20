@@ -124,7 +124,7 @@ class ProfileView extends Component {
       console.log(this.state.applications)
       //console.log(this.state.sveplatforme2.data)
 
-      let userid = await axios.get()
+
 
     } catch (error) {
       console.error("Error:", error);
@@ -262,7 +262,7 @@ class ProfileView extends Component {
 
 
     console.log(combined)
-    console.log(this.state.prof)
+    console.log(this.state.user[1])
     return (
       <div className="profile-div">
         {this.state.prof.length > 0 && (
@@ -279,8 +279,13 @@ class ProfileView extends Component {
               </div>
             </div>
 
+            {this.props.user[1] != 73489 ? <div>
             <p className="platforms-text"> Your platforms:</p>
             <text className="platforms-additionaltext">*Each of your platforms has its "username/nickname" stated below. You consent to sharing your username by adding the platforms to your profile.</text>
+            </div> : <div></div> }
+            
+            
+            
             <div className="row row-cols-1 row-cols-md-6 g-4" style={{ margin: "10px" }}>
 
 
@@ -294,9 +299,9 @@ class ProfileView extends Component {
                     </div>
                   )
                 }) :
-                <p className = "no">
-                    THERE ARE CURRENTLY NO PLATFORMS ADDED.
-                  </p>}
+                <p className="no">
+                  THERE ARE CURRENTLY NO PLATFORMS ADDED.
+                </p>}
 
 
               {data4.length > 0 ?
@@ -314,31 +319,35 @@ class ProfileView extends Component {
 
             </div>
 
-            <div id="games-profile-body">
-              <p className="platforms-text"> Your GAMES:</p>
-              <div className="row row-cols-1 row-cols-md-4 g-4" >
-                {data2.length > 0 ?
-                  data2.map(d => {
-                    return (<div className="col" id="games-profile-body" key={d.id}>
+            {this.props.user[1] != 73489 ?
+              <div id="games-profile-body">
+                <p className="platforms-text"> Your GAMES:</p>
+                <div className="row row-cols-1 row-cols-md-4 g-4" >
+                  {data2.length > 0 ?
+                    data2.map(d => {
+                      return (<div className="col" id="games-profile-body" key={d.id}>
 
-                      <div className="card">
-                        <div className="card-body" id="games-profile-body">
-                          <img className="games-image" src={d[0].url}></img>
+                        <div className="card">
+                          <div className="card-body" id="games-profile-body">
+                            <img className="games-image" src={d[0].url}></img>
 
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    )
-                  }) :
-                  <p className = "no">
-                    There are currently no games added.
-                  </p>
-                }
+                      )
+                    }) :
+                    <p className="no">
+                      There are currently no games added.
+                    </p>
+                  }
+                </div>
+              </div> :
+              <div >
               </div>
+            }
 
-            </div>
-
-            <div id="games-profile-body">
+            {this.props.user[1] != 73489 ?
+              <div id="games-profile-body">
               <p className="platforms-text"> Your open movie applications:</p>
               <div className="row row-cols-1 row-cols-md-6 g-4" >
                 {applicationsMovies.length > 0 ?
@@ -354,12 +363,18 @@ class ProfileView extends Component {
                     </div>
                     )
                   }) :
-                  <p className = "no">
+                  <p className="no">
                     YOU HAVE NOT APPLIED TO ANY MOVIE.
                   </p>}
               </div>
 
-            </div>
+            </div>:
+              <div >
+              </div>
+            }
+
+
+            
 
             <div>
               <button className="byelehends" onClick={() => this.Logout()}>LOGOUT</button>

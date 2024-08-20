@@ -8,7 +8,9 @@ class SingleGameView extends Component {
       game: [],
       genre: "all",
       gameIDs: [],
-      isAdded: false
+      isAdded: false,
+      users: [],
+      profili: []
     }
   }
 
@@ -16,12 +18,12 @@ class SingleGameView extends Component {
     this.props.QViewFromChild(obj);
   };
 
-  ma = (obj) =>{
+  ma = (obj) => {
     this.props.ma(obj)
   }
 
 
-  componentDidMount() {
+  async componentDidMount() {
     axios.get("http://88.200.63.148:4567/games/" + this.props.data)
 
       .then(res => {
@@ -44,9 +46,35 @@ class SingleGameView extends Component {
         let isAdded = gameIDs.includes(this.props.data);
         this.setState({ gameIDs, isAdded });
         console.log(this.state.gameIDs)
+
+        return axios.get("http://88.200.63.148:4567/games/users/" + this.props.data)
+      })
+      .then(res => {
+        this.setState({
+          users: res.data
+        })
+        console.log(this.state.users)
+
+        this.getUsers()
       })
 
 
+  }
+
+  async getUsers() {
+    let profiles = this.state.users.map(id =>
+      axios.get(`http://88.200.63.148:4567/profile/profil/` + id.p_id)
+    );
+
+    let cekamprofil = await Promise.all(profiles);
+    console.log(cekamprofil)
+    let d = cekamprofil.map(response => response.data);
+    console.log(d)
+    this.setState({
+      profili: d.flat()
+    });
+
+    console.log(this.state.profili)
   }
 
   PostGame() {
@@ -66,7 +94,7 @@ class SingleGameView extends Component {
   }
 
 
-  RemoveGame(){
+  RemoveGame() {
     let pid = this.props.pid
     let gid = this.props.data
 
@@ -78,20 +106,21 @@ class SingleGameView extends Component {
         console.log("Sent to server...");
         console.log(res.data);
         console.log(this.props.data)
-        this.QSetViewInParent({page: "game", id: this.props.data })
+        this.QSetViewInParent({ page: "game", id: this.props.data })
         this.setState({ isAdded: false });
 
       });
   }
 
-  
+
   render() {
     let isAdded = this.state.isAdded
     let m = this.state.delete
     let game = this.state.game
     console.log(this.props.type)
+    console.log(this.state.profili)
 
-
+    let data2 = this.state.profili
     return (
 
       <div>
@@ -133,11 +162,37 @@ class SingleGameView extends Component {
             >
               RETURN TO GAMES
             </button>
+
+            <br></br>
+            <br></br>
+            <p className="platforms-text">{data2.length} PLAYERS OF THE GAME</p>
+            <div className="row row-cols-1 row-cols-md-6 g-4" >
+              {data2.length > 0 ?
+                data2.map(d => {
+                  return (<div className="col" id="games-profile-body" key={d.id}>
+
+                    <div className="card">
+                      <div className="card-body" id="games-profile-body">
+                        <img className="games-image" src={d.icon}></img>
+
+                      </div>
+                    </div>
+                  </div>
+                  )
+                }) :
+                <p className="no">
+                 
+                </p>
+              }
+            </div>
+
+
+
           </div>
 
           : "Loading..."}
 
-          
+
       </div>
 
     );

@@ -42,6 +42,17 @@ games.get('/profil/:id', async (req, res, next) =>{
     }
 })
 
+games.get('/users/:id', async (req, res, next) =>{
+    try{
+       // console.log(req)
+        let queryResult = await db.allUsersGame(req.params.id)
+        res.json(queryResult)
+    }
+    catch(err){
+        console.log(err)
+        res.sendStatus(500)
+    }
+})
 
 
 

@@ -73,7 +73,7 @@ class App extends React.Component {
       case "signup":
         return <SignupView QUserFromChild={this.QHandleUserLog} changeview = {this.QSetView} />;
       case "login":
-        return <LoginView QUserFromChild={this.QHandleUserLog} />;
+        return <LoginView changeview = {this.QSetView} QUserFromChild={this.QHandleUserLog} />;
       case "game":
         return <SingleGameView ma = {this.QHandleProfile} pid = {this.state.profileID} logged = {this.state.userStatus.logged} QViewFromChild={this.QSetView} data={this.state.gameID} type={this.state.type} />;
       case "movie":
@@ -196,14 +196,14 @@ class App extends React.Component {
                     </a>
                   </li>
 
-                {this.state.userStatus.logged && this.state.profileID == 0 &&
+                {this.state.userStatus.logged && this.state.userStatus.user[1] == 73489 &&
                   <li className="nav-item">
                     <a
                       onClick={() => this.QSetView({ page: "addgame" })}
                       className="nav-link"
                       href="#"
                     >
-                      ADD A GAME
+                      MANAGEMENT
                     </a>
                   </li>
 

@@ -30,8 +30,10 @@ profile.get('/:id', async (req, res, next) =>{
 
 
 profile.get('/profil/:id', async (req, res, next) =>{
+    console.log("usao")
     try{
         let queryResult = await db.oneProfileP(req.params.id)
+        console.log(queryResult)
         res.json(queryResult)
     }
     catch(err){
