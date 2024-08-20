@@ -17,7 +17,7 @@ class LoginView extends Component {
   async componentDidMount() {
     try {
 
-      let res = await axios.get(`http://88.200.63.148:4567/user/`);
+      let res = await axios.get(`/user/`);
       let emsils = res.data.map(d => d.email);
       this.setState({
         emails: emsils
@@ -67,7 +67,7 @@ class LoginView extends Component {
     console.log("tu sam");
     let user = this.state.user;
     //console.log(this.state.user);
-    axios.post("http://88.200.63.148:4567/user/login", {
+    axios.post("/user/login", {
       email: user.username,
       password: user.password
     }, { withCredentials: true })
@@ -87,7 +87,7 @@ class LoginView extends Component {
 
   QPostProfile = () => {
     console.log(this.state.userid)
-    axios.get("http://88.200.63.148:4567/profile/" + this.state.userid)
+    axios.get("/profile/" + this.state.userid)
       .then(res => {
         this.setState({
           platforms: res.data

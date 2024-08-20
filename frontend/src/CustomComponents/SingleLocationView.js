@@ -24,7 +24,7 @@ class SingleLocationView extends Component {
     try {
 
       //svi komentari
-      let res = await axios.get(`http://88.200.63.148:4567/locations/comments/` + this.props.data)
+      let res = await axios.get(`/locations/comments/` + this.props.data)
       this.setState({
         comments: res.data
       })
@@ -35,7 +35,7 @@ class SingleLocationView extends Component {
 
       //dobijem sve profile koji su komentarisali
       let p = profileIDs.map(id =>
-        axios.get(`http://88.200.63.148:4567/profile/profil/` + id)
+        axios.get(`/profile/profil/` + id)
       );
       let profiles = await Promise.all(p)
 
@@ -56,7 +56,7 @@ class SingleLocationView extends Component {
 
 
   componentDidMount() {
-    axios.get("http://88.200.63.148:4567/locations/" + this.props.data)
+    axios.get("/locations/" + this.props.data)
       .then(res => {
         console.log(this.props.type)
         let genre = "all"
@@ -84,7 +84,7 @@ class SingleLocationView extends Component {
 
   PostComment = () => {
     let idr = Math.floor(Math.random() * 10000);
-    axios.post("http://88.200.63.148:4567/comments/locations", {
+    axios.post("/comments/locations", {
       id: idr,
       text: this.state.comment.text,
       l_id: this.props.l_id,
@@ -103,7 +103,7 @@ class SingleLocationView extends Component {
 
   Like = () =>{
 
-    axios.post("http://88.200.63.148:4567/locations/like",{
+    axios.post("/locations/like",{
       id: this.props.l_id,
       likes: this.state.location[0]?.likes
     }).then(res=>{
@@ -117,7 +117,7 @@ class SingleLocationView extends Component {
 
   Dislike = () =>{
 
-    axios.post("http://88.200.63.148:4567/locations/dislike",{
+    axios.post("/locations/dislike",{
       id: this.props.l_id,
       likes: this.state.location[0]?.dislikes
     }).then(res=>{

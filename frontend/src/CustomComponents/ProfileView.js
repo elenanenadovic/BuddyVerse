@@ -43,7 +43,7 @@ class ProfileView extends Component {
   async componentDidMount() {
     try {
 
-      let res = await axios.get(`http://88.200.63.148:4567/profile/` + this.props.user[1]);
+      let res = await axios.get(`/profile/` + this.props.user[1]);
       this.setState({
         prof: res.data
       });
@@ -52,14 +52,14 @@ class ProfileView extends Component {
 
       ///console.log(res.data[0].id)
       this.QSendUser2Parent({ id: res.data[0].id });
-      let res2 = await axios.get(`http://88.200.63.148:4567/platforms/` + this.props.id)
+      let res2 = await axios.get(`/platforms/` + this.props.id)
 
       //console.log("ovde");
       //console.log(res.data);
       let platformIds = res2.data.map(d => d.pp_id);
       //console.log(platformIds)
       let res3 = platformIds.map(id =>
-        axios.get(`http://88.200.63.148:4567/platforms/profil/` + id)
+        axios.get(`/platforms/profil/` + id)
       );
       let platforms = await Promise.all(res3);
 
@@ -70,14 +70,14 @@ class ProfileView extends Component {
       });
 
       //trebaju i games i platforms ali platforms dodaj posle addovanje na profil
-      let games = await axios.get(`http://88.200.63.148:4567/games/profil/` + this.props.id)//props id
+      let games = await axios.get(`/games/profil/` + this.props.id)//props id
       /// console.log(games.data);
 
       let gameIDs = games.data.map(d => d.g_id);
       /// console.log(gameIDs)
 
       let gamesFinal = gameIDs.map(id =>
-        axios.get(`http://88.200.63.148:4567/games/` + id)
+        axios.get(`/games/` + id)
       );
       let gameInfo = await Promise.all(gamesFinal);
       let d = gameInfo.map(response => response.data);
@@ -85,20 +85,20 @@ class ProfileView extends Component {
         games: d
       });
 
-      let platformss = await axios.get(`http://88.200.63.148:4567/platforms`);
+      let platformss = await axios.get(`/platforms`);
       this.setState({
         sveplatforme: platformss.data
       })
       //console.log(this.state.sveplatforme.data)
 
-      let sveplatforme = await axios.get(`http://88.200.63.148:4567/platforms/` + this.props.id)
+      let sveplatforme = await axios.get(`/platforms/` + this.props.id)
       console.log(sveplatforme.data)
       this.setState({
         sveplatforme2: sveplatforme.data
       })
 
       //vucem sve aplikacije
-      let applications = await axios.get(`http://88.200.63.148:4567/applications/` + this.props.id)
+      let applications = await axios.get(`/applications/` + this.props.id)
       this.setState({
         applications: applications.data
       })
@@ -110,7 +110,7 @@ class ProfileView extends Component {
 
 
       let moviespictures = moviesids.map(id =>
-        axios.get(`http://88.200.63.148:4567/movies/` + id)
+        axios.get(`/movies/` + id)
       );
       let moviespictures2 = await Promise.all(moviespictures);
 
@@ -137,7 +137,7 @@ class ProfileView extends Component {
     this.setState({
       platformaAdd: val
     })
-    axios.get(`http://88.200.63.148:4567/platforms/id/` + val)
+    axios.get(`/id/` + val)
       .then(res => {
         //console.log(res.data)
         this.setState({
@@ -170,7 +170,7 @@ class ProfileView extends Component {
     }
 
     let idr = Math.floor(Math.random() * 10000);
-    axios.post("http://88.200.63.148:4567/platforms/profile", {
+    axios.post("/profile", {
       id: idr,
       p_id: this.props.id,
       nick: this.state.user.nick,
@@ -209,7 +209,7 @@ class ProfileView extends Component {
   PostProfile = () => {
     let idr = Math.floor(Math.random() * 10000);
     console.log(this.props.user[1])
-    axios.post("http://88.200.63.148:4567/profile/", {
+    axios.post("/profile/", {
       id: idr,
       age: this.state.user.age,
       surname: this.state.user.surname,

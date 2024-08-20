@@ -30,10 +30,14 @@ games.get('/:id', async (req, res, next) =>{
 })
 
 
+
+//SELECT * FROM Game_profile WHERE p_id = ?
 games.get('/profil/:id', async (req, res, next) =>{
     try{
-       // console.log(req)
+       console.log(req.params.id)
+
         let queryResult = await db.gamesProfile(req.params.id)
+        console.log("Query result" + queryResult)
         res.json(queryResult)
     }
     catch(err){
@@ -42,11 +46,14 @@ games.get('/profil/:id', async (req, res, next) =>{
     }
 })
 
+
+//SELECT p_id FROM Game_profile WHERE g_id = ?
 games.get('/users/:id', async (req, res, next) =>{
     try{
-       // console.log(req)
+    console.log("ELENA" + req.params.id)
         let queryResult = await db.allUsersGame(req.params.id)
         res.json(queryResult)
+        console.log(queryResult)
     }
     catch(err){
         console.log(err)

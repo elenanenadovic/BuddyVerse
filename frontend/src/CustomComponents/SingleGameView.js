@@ -24,73 +24,71 @@ class SingleGameView extends Component {
 
 
   async componentDidMount() {
-    axios.get("http://88.200.63.148:4567/games/" + this.props.data)
+    try {
 
-      .then(res => {
-        console.log(this.props.type)
-        let genre = "all"
-        if (this.props.type != "all") {
-          console.log("ovde sam")
-          console.log(res.data[0].type)
-          genre = res.data[0].type
-        }
-        this.setState({
-          game: res.data,
-          genre: genre
+      let res = await axios.get("/games/" + this.props.data);
+      console.log(res);
+      let genre = this.props.type !== "all" ? res.data[0].type : "all"
+      this.setState({ game: res.data, genre })
+
+
+      let profileRes = await axios.get("/games/profil/" + this.props.pid);
+      console.log(profileRes);
+      let gameIDs = profileRes.data.map(game => game.g_id);
+      let isAdded = gameIDs.includes(this.props.data);
+      this.setState({ gameIDs, isAdded });
+
+
+      let usersRes = await axios.get("/games/users/" + this.props.data);
+      let users = usersRes.data;
+      console.log(users);
+
+      if (users.length === 0) {
+        this.setState({ profili: [] });
+        return;
+      }
+
+      let profiles = users.map(user =>
+        axios.get("/profile/profil/" + user.p_id).catch(error => {
+          console.error("Error")
+          return null;
         })
+      );
 
-        return axios.get("http://88.200.63.148:4567/games/profil/" + this.props.pid);
-      })
-      .then(res => {
-        let gameIDs = res.data.map(game => game.g_id);
-        let isAdded = gameIDs.includes(this.props.data);
-        this.setState({ gameIDs, isAdded });
-        console.log(this.state.gameIDs)
+      let cekamprofil = await Promise.all(profiles);
+      console.log(cekamprofil);
+      let d = cekamprofil
+      .filter(res => res)
+        .map(res => res.data);
+      console.log(d);
+      this.setState({
+        profili: d.flat()
+      });
 
-        return axios.get("http://88.200.63.148:4567/games/users/" + this.props.data)
-      })
-      .then(res => {
-        this.setState({
-          users: res.data
-        })
-        console.log(this.state.users)
+      console.log(this.state.profili);
 
-        this.getUsers()
-      })
-
-
+    } catch (error) {
+      console.error("Error OPET:", error);
+    }
   }
 
-  async getUsers() {
-    let profiles = this.state.users.map(id =>
-      axios.get(`http://88.200.63.148:4567/profile/profil/` + id.p_id)
-    );
 
-    let cekamprofil = await Promise.all(profiles);
-    console.log(cekamprofil)
-    let d = cekamprofil.map(response => response.data);
-    console.log(d)
-    this.setState({
-      profili: d.flat()
-    });
-
-    console.log(this.state.profili)
-  }
 
   PostGame() {
     let pid = this.props.pid
     let gid = this.props.data
-    console.log(pid)
+    //console.log(pid)
     //console.log(this.state.user);
-    axios.post("http://88.200.63.148:4567/games/profilpost", {
+    axios.post("/games/profilpost", {
       p_id: pid,
       g_id: gid
     }, { withCredentials: true })
       .then(res => {
-        console.log("Sent to server...");
-        console.log(res.data);
+        // console.log("Sent to server...");
+        //console.log(res.data);
         this.setState({ isAdded: true });
       });
+    this.componentDidMount()
   }
 
 
@@ -98,26 +96,28 @@ class SingleGameView extends Component {
     let pid = this.props.pid
     let gid = this.props.data
 
-    axios.post("http://88.200.63.148:4567/games/deletegameprofile", {
+    axios.post("/games/deletegameprofile", {
       p_id: pid,
       g_id: gid
     }, { withCredentials: true })
       .then(res => {
-        console.log("Sent to server...");
-        console.log(res.data);
-        console.log(this.props.data)
+        // console.log("Sent to server...");
+        //console.log(res.data);
+        //console.log(this.props.data)
         this.QSetViewInParent({ page: "game", id: this.props.data })
         this.setState({ isAdded: false });
 
       });
+    this.componentDidMount()
   }
 
 
   render() {
+    // console.log("AHOJ")
     let isAdded = this.state.isAdded
     let m = this.state.delete
     let game = this.state.game
-    console.log(this.props.type)
+    //console.log(this.props.type)
     console.log(this.state.profili)
 
     let data2 = this.state.profili
@@ -181,7 +181,7 @@ class SingleGameView extends Component {
                   )
                 }) :
                 <p className="no">
-                 
+
                 </p>
               }
             </div>
