@@ -170,7 +170,7 @@ class ProfileView extends Component {
     }
 
     let idr = Math.floor(Math.random() * 10000);
-    axios.post("/profile", {
+    axios.post("/platforms/profile", {
       id: idr,
       p_id: this.props.id,
       nick: this.state.user.nick,
